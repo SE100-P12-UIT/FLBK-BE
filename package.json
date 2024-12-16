@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "pm2 start ecosystem.config.json --no-daemon",
+    "preinstall": "npm install --omit=dev",
+    "start": "pm2 runtime ecosystem.config.json --no-daemon",
     "dev": "cross-env NODE_ENV=development nodemon --inspect ./src/index.js"
   },
   "author": "",
@@ -25,6 +26,7 @@
     "mongoose": "^8.8.4",
     "node-cron": "^3.0.3",
     "passport": "^0.7.0",
+    "pm2": "^5.4.3",
     "validator": "^13.12.0",
     "winston": "^3.17.0",
     "xss-clean": "^0.1.4"
