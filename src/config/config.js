@@ -7,7 +7,7 @@ dotenv.config({ path: path.join(__dirname, '../../.env')})
 const envVarsSchema = Joi.object()
 .keys({
     NODE_ENV: Joi.string().valid('production','development','test').required(),
-    PORT: Joi.number().default(3100),
+    PORT: Joi.number().default(8080),
     MONGODB_URL: Joi.string().required().description('MongoDB URL'),
 })
 .unknown();
