@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "install": "npm install --omit=dev",
-    "start": "pm2 runtime ecosystem.config.json --no-daemon",
+    "start": "pm2 start ecosystem.config.json --no-daemon",
     "dev": "cross-env NODE_ENV=development nodemon --inspect ./src/index.js"
   },
   "author": "",
