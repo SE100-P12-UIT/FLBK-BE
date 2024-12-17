@@ -56,6 +56,33 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
+    citizenId: {
+      type: String,
+      trim: true,
+      required: false,
+    },
+    address: {
+      province: {
+        type: String,
+        trim: true,
+        required: false,
+      },
+      district: {
+        type: String,
+        trim: true,
+        required: false,
+      },
+      town: {
+        type: String,
+        trim: true,
+        required: false,
+      },
+      street: {
+        type: String,
+        trim: true,
+        required: false,
+      },
+    },
   },
   {
     timestamps: true,
@@ -82,5 +109,7 @@ userSchema.pre("save", async function (next) {
   }
   next();
 });
+
+const User = mongoose.model("Users", userSchema);
 
 module.exports = User;
