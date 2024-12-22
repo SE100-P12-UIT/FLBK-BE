@@ -29,8 +29,8 @@ const ticketSchema = mongoose.Schema(
   }
 );
 
-receiptSchema.plugin(toJSON);
-receiptSchema.plugin(paginate);
+ticketSchema.plugin(toJSON);
+ticketSchema.plugin(paginate);
 
 const Ticket = mongoose.model("Tickets", ticketSchema);
 
