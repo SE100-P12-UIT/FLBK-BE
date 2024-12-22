@@ -5,7 +5,10 @@ const xss = require("xss-clean");
 const mongoSanitize = require("express-mongo-sanitize");
 const compression = require("compression");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
+const routes = require("./routes");
+const ApiError = require("./utils/ApiError");
+const { jwtStrategy } = require("./config/passport");
+const passport = require("passport");
 
 require("dotenv").config();
 
@@ -34,8 +37,13 @@ app.use(compression());
 app.use(cors());
 app.options("*", cors());
 
+app.use(passport.initialize());
+passport.use("jwt", jwtStrategy);
+
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
+
+app.use("/v1", routes);
 
 module.exports = app;

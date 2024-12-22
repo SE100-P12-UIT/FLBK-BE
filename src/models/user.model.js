@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
-const { toJSON, paginate } = require("./plugins");
+const toJSON = require("./plugins/toJSON.plugin");
+const paginate = require("./plugins/paginate.plugin");
 const { roles } = require("../config/roles");
 
 const userSchema = new mongoose.Schema(
@@ -98,8 +99,7 @@ userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
 };
 
 userSchema.methods.isPasswordMatch = async function (password) {
-  const user = this;
-  return bcrypt.compare(password, user.password);
+  return await bcrypt.compare(password, this.password);
 };
 
 userSchema.pre("save", async function (next) {
