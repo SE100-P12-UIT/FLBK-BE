@@ -1,10 +1,10 @@
 const allRoles = {
   user: [
     "bookFlight",
-    "getUsers",
     "viewFlight",
     "cancelFlight",
     "viewHistoryBookFlight",
+    "searchUserByEmail",
   ],
   employee: [
     "viewFlight",
@@ -19,6 +19,7 @@ const allRoles = {
     "getUsers",
     "searchUserByEmail",
     "manageUsers",
+    "manageRoles",
     "manageReports",
     "manageFlights",
     "manageRules",
