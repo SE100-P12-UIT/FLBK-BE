@@ -9,7 +9,7 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *  name: Role
+ *  name: Roles
  *  description: Role management API
  */
 
