@@ -7,3 +7,4 @@ module.exports.Receipt = require("./receipt.model");
 module.exports.Seat = require("./seat.model");
 module.exports.Ticket = require("./ticket.model");
 module.exports.TicketTypes = require("./ticketTypes.model");
+module.exports.Role = require("./role.model");
