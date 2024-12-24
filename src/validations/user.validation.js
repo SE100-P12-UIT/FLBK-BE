@@ -7,15 +7,17 @@ const createUser = {
     password: Joi.string().required().custom(password),
     name: Joi.string().required(),
     role: Joi.string().required().valid("user", "admin", "employee"),
-    dateOfBirth: Joi.date(),
-    phoneNumber: Joi.string(),
-    citizenId: Joi.string(),
-    address: Joi.object().keys({
-      province: Joi.string(),
-      district: Joi.string(),
-      town: Joi.string(),
-      street: Joi.string(),
-    }),
+    dateOfBirth: Joi.date().optional(),
+    phoneNumber: Joi.string().optional(),
+    citizenId: Joi.string().optional(),
+    address: Joi.object()
+      .keys({
+        province: Joi.string().required(),
+        district: Joi.string().required(),
+        town: Joi.string().required(),
+        street: Joi.string().required(),
+      })
+      .optional(),
   }),
 };
 
