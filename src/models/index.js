@@ -4,7 +4,6 @@ module.exports.Airport = require("./airport.model");
 module.exports.Flight = require("./flight.model");
 module.exports.Plane = require("./plane.model");
 module.exports.Receipt = require("./receipt.model");
-module.exports.Seat = require("./seat.model");
 module.exports.Ticket = require("./ticket.model");
 module.exports.TicketTypes = require("./ticketTypes.model");
 module.exports.Role = require("./role.model");
