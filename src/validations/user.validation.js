@@ -6,7 +6,16 @@ const createUser = {
     email: Joi.string().required().email(),
     password: Joi.string().required().custom(password),
     name: Joi.string().required(),
-    role: Joi.string().required().valid("user", "admin"),
+    role: Joi.string().required().valid("user", "admin", "employee"),
+    dateOfBirth: Joi.date(),
+    phoneNumber: Joi.string(),
+    citizenId: Joi.string(),
+    address: Joi.object().keys({
+      province: Joi.string(),
+      district: Joi.string(),
+      town: Joi.string(),
+      street: Joi.string(),
+    }),
   }),
 };
 
