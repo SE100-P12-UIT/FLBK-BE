@@ -24,11 +24,28 @@ const flightSchema = mongoose.Schema({
     type: mongoose.Schema.Types.Decimal128,
     required: true,
   },
+  planeId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "Planes",
+  },
+  seats: [
+    {
+      seatId: {
+        type: String,
+        required: true,
+      },
+      isAvailable: {
+        type: Boolean,
+        required: true,
+      },
+    },
+  ],
 });
 
 flightSchema.plugin(toJSON);
 flightSchema.plugin(paginate);
 
-const Flight = mongoose.model('Flights', flightSchema);
+const Flight = mongoose.model("Flights", flightSchema);
 
 module.exports = Flight;
