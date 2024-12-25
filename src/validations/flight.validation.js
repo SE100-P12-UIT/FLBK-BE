@@ -49,17 +49,17 @@ const deleteFlight = {
     }),
 };
 
-const searchFlightByNumber = {
-    params: Joi.object().keys({
-        flightNumber: Joi.string().required(),
-    }),
-};
+// const searchFlightByNumber = {
+//     params: Joi.object().keys({
+//         flightNumber: Joi.string().required(),
+//     }),
+// };
 
 module.exports = {
     createFlight,
     getFlights,
     getFlight,
     updateFlight,
-    deleteFlight,
-    searchFlightByNumber,
+    deleteFlight
+    // searchFlightByNumber,
 };

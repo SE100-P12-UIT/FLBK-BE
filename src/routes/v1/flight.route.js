@@ -4,6 +4,7 @@ const validate = require("../../middlewares/validate");
 const flightValidation = require("../../validations/flight.validation");
 const flightController = require("../../controllers/flight.controller");
 
+
 const router = express.Router();
 
 router
@@ -37,12 +38,12 @@ router
         flightController.deleteFlight
     );
 
-router
-    .route("/search-flight-by-number/:flightNumber")
-    .get(
-        auth("searchFlightByNumber"),
-        validate(flightValidation.searchFlightByNumber),
-        flightController.searchFlightByNumber
-    );
-
+// router
+//     .route("/search-flight-by-number/:flightNumber")
+//     .get(
+//         auth("searchFlightByNumber"),
+//         validate(flightValidation.searchFlightByNumber),
+//         flightController.searchFlightByNumber
+//     );
+// npm
 module.exports = router;
