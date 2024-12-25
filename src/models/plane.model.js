@@ -21,6 +21,14 @@ const planeSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
+  seats: [
+    {
+      seatId: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 planeSchema.plugin(toJSON);

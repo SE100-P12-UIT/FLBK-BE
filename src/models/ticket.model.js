@@ -23,6 +23,16 @@ const ticketSchema = mongoose.Schema(
       required: true,
       ref: "TicketTypes",
     },
+    status: {
+      type: String,
+      required: true,
+      enum: ["Verifying", "PendingCancel", "Invalid", "Canceled, Success"],
+    },
+    note: {
+      type: String,
+      required: false,
+      trim: true,
+    },
   },
   {
     timestamp: true,
