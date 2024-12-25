@@ -20,6 +20,7 @@ const allRoles = {
     "searchUserByEmail",
     "manageUsers",
     "manageRoles",
+    "manageTicketTypes",
     "manageReports",
     "manageFlights",
     "manageRules",

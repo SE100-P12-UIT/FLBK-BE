@@ -88,6 +88,16 @@ components:
         permissions:
           - viewFlight
           - bookFlight
+    TicketType:
+      type: object
+      properties:
+        typeName:
+          type: string
+        coefficient:
+          type: number
+      example:
+        typeName: common
+        coefficient: 0.5
   responses:
     DuplicateEmail:
       description: Email already taken
