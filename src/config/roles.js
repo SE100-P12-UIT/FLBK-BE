@@ -8,6 +8,8 @@ const allRoles = {
   ],
   employee: [
     "viewFlight",
+    "getUsers",
+    "searchUserByEmail",
     "searchUserInfo",
     "insertFlightSchedule",
     "recordBookFlight",
@@ -17,7 +19,9 @@ const allRoles = {
   admin: [
     "manageEmployees",
     "getUsers",
+    "getFlights",
     "searchUserByEmail",
+    "managePlanes",
     "manageUsers",
     "manageRoles",
     "manageTicketTypes",

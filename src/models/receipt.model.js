@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { toJSON, paginate } = require("./plugins");
 
-const receiptSchema = mongoose.Schema(
+const receiptSchema = new mongoose.Schema(
   {
     total: {
       type: mongoose.Schema.Types.Decimal128,

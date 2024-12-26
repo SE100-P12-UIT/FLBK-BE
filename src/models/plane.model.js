@@ -1,16 +1,12 @@
 const mongoose = require("mongoose");
 const { toJSON, paginate } = require("./plugins");
 
-const planeSchema = mongoose.Schema({
+const planeSchema = new mongoose.Schema({
   planeName: {
     type: String,
     required: true,
     trim: true,
-  },
-  planeType: {
-    type: String,
-    required: true,
-    trim: true,
+    unique: true,
   },
   maxSeats: {
     type: Number,
@@ -23,17 +19,35 @@ const planeSchema = mongoose.Schema({
   },
   seats: [
     {
-      seatId: {
+      seatName: {
         type: String,
+        required: true,
+        unique: true,
+      },
+      seatType: {
+        type: String,
+        required: false,
+        enum: ["business", "common"],
+      },
+      disable: {
+        type: Boolean,
         required: true,
       },
     },
   ],
 });
 
+planeSchema.statics.isPlaneNameTaken = async function (name, excludePlaneId) {
+  const plane = await this.findOne({
+    planeName: name,
+    _id: { $ne: excludePlaneId },
+  });
+  return !!plane;
+};
+
 planeSchema.plugin(toJSON);
 planeSchema.plugin(paginate);
 
-const Plane = mongoose.model("Planes", planeSchema);
+const Plane = mongoose.model("Plane", planeSchema);
 
 module.exports = Plane;
