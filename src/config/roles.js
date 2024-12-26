@@ -8,6 +8,8 @@ const allRoles = {
   ],
   employee: [
     "viewFlight",
+    "getUsers",
+    "searchUserByEmail",
     "searchUserInfo",
     "insertFlightSchedule",
     "recordBookFlight",
