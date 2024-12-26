@@ -14,7 +14,7 @@ router
         flightController.createFlight
     )
     .get(
-        auth("getFlights"),
+        auth("manageFlights"),
         validate(flightValidation.getFlights),
         flightController.getFlights
     );
