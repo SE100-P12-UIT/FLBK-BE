@@ -9,7 +9,7 @@ const createFlight = catchAsync(async (req, res) => {
 });
 
 const getFlights = catchAsync(async (req, res) => {
-    const filter = pick(req.query, ["departureAirport", "arrivalAirport", "departureTime", "price"]);
+    const filter = pick(req.query, ["departureAirport", "arrivalAirport", "planeId", "price"]);
     const options = pick(req.query, ["sortBy", "limit", "page"]);
     const result = await flightService.queryFlights(filter, options);
     res.status(200).send(result);
@@ -20,11 +20,14 @@ const getFlight = catchAsync(async (req, res) => {
     if (!flight) {
         throw new ApiError(404, "Flight not found");
     }
-    res.status(200).send(flight.toJSON());
+    res.status(200).send(flight);
 });
 
 const updateFlight = catchAsync(async (req, res) => {
     const flight = await flightService.updateFlightById(req.params.flightId, req.body);
+    if (!flight) {
+        throw new ApiError(404, "Flight not found");
+    }
     res.status(200).send(flight);
 });
 

@@ -5,6 +5,7 @@ components:
       scheme: bearer
       bearerFormat: JWT
       description: JWT authorization header. Use `Bearer <token>` format.
+
   schemas:
     User:
       type: object
@@ -23,7 +24,8 @@ components:
             - admin
             - employee
         dateOfBirth:
-          type: Date
+          type: string
+          format: date
         citizenId:
           type: string
         phoneNumber:
@@ -40,14 +42,19 @@ components:
             street:
               type: string
       example:
-        id: 5ebac534954b54139806c112
-        email: fake@example.com
-        name: fake name
-        role: user
-        dateOfBirth: 1995-05-12
-        citizenId: 0123456789
-        phoneNumber: 0998877665
-        address: xx Street A
+        id: "5ebac534954b54139806c112"
+        email: "fake@example.com"
+        name: "fake name"
+        role: "user"
+        dateOfBirth: "1995-05-12"
+        citizenId: "0123456789"
+        phoneNumber: "0998877665"
+        address:
+          province: "XX"
+          district: "District A"
+          town: "Town B"
+          street: "Street A"
+
     Token:
       type: object
       properties:
@@ -60,6 +67,7 @@ components:
         token: >-
           eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZWJhYzUzNDk1NGI1NDEzOTgwNmMxMTIiLCJpYXQiOjE1ODkyOTg0ODQsImV4cCI6MTU4OTMwMDI4NH0.m1U63blB0MLej_WfB7yC2FTMnCziif9X8yzwDEfJXAg
         expires: "2020-05-12T16:18:04.793Z"
+
     AuthTokens:
       type: object
       properties:
@@ -67,13 +75,15 @@ components:
           $ref: "#/components/schemas/Token"
         refresh:
           $ref: "#/components/schemas/Token"
+
     Error:
       type: object
       properties:
         code:
-          type: number
+          type: integer
         message:
           type: string
+
     Role:
       type: object
       properties:
@@ -84,10 +94,11 @@ components:
           items:
             type: string
       example:
-        name: user
+        name: "user"
         permissions:
-          - viewFlight
-          - bookFlight
+          - "viewFlight"
+          - "bookFlight"
+
     TicketType:
       type: object
       properties:
@@ -96,9 +107,91 @@ components:
         coefficient:
           type: number
       example:
-        typeName: common
+        typeName: "common"
         coefficient: 0.5
+
+    Flight:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the flight
+        departureAirport:
+          type: string
+          description: Reference to the departure airport ID
+          example: "64c8d45b634c3c0012345678"
+        arrivalAirport:
+          type: string
+          description: Reference to the arrival airport ID
+          example: "64c8d45b634c3c0012345679"
+        departureTime:
+          type: string
+          format: date-time
+          description: The departure time of the flight
+          example: "2024-01-01T12:00:00.000Z"
+        duration:
+          type: integer
+          description: Duration of the flight in minutes
+          example: 180
+        price:
+          type: number
+          format: double
+          description: Price of the flight ticket
+          example: 150.50
+        planeId:
+          type: string
+          description: Reference to the plane ID
+          example: "64c8d45b634c3c0012345680"
+        seats:
+          type: array
+          description: List of seat availability for the flight
+          items:
+            type: object
+            properties:
+              seatId:
+                type: string
+                description: Unique identifier for the seat
+                example: "1A"
+              isAvailable:
+                type: boolean
+                description: Indicates whether the seat is available
+                example: true
+      example:
+        id: "64c8d45b634c3c0012345677"
+        departureAirport: "64c8d45b634c3c0012345678"
+        arrivalAirport: "64c8d45b634c3c0012345679"
+        departureTime: "2024-01-01T12:00:00.000Z"
+        duration: 180
+        price: 150.50
+        planeId: "64c8d45b634c3c0012345680"
+        seats:
+          - seatId: "1A"
+            isAvailable: true
+          - seatId: "1B"
+            isAvailable: false
+
   responses:
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
     DuplicateEmail:
       description: Email already taken
       content:
@@ -107,7 +200,8 @@ components:
             $ref: "#/components/schemas/Error"
           example:
             code: 400
-            message: Email already taken
+            message: "Email already taken"
+
     Unauthorized:
       description: Unauthorized
       content:
@@ -116,25 +210,8 @@ components:
             $ref: "#/components/schemas/Error"
           example:
             code: 401
-            message: Please authenticate
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Error"
-          example:
-            code: 403
-            message: Forbidden
-    NotFound:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Error"
-          example:
-            code: 404
-            message: Not found
+            message: "Please authenticate"
+
     BadRequest:
       description: Bad Request
       content:
@@ -143,7 +220,8 @@ components:
             $ref: "#/components/schemas/Error"
           example:
             code: 400
-            message: Bad request
+            message: "Bad request"
+
     InternalServerError:
       description: Internal Server Error
       content:
@@ -152,4 +230,4 @@ components:
             $ref: "#/components/schemas/Error"
           example:
             code: 500
-            message: Internal server error
+            message: "Internal server error"
