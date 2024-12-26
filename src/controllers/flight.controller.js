@@ -9,8 +9,8 @@ const createFlight = catchAsync(async (req, res) => {
 });
 
 const getFlights = catchAsync(async (req, res) => {
-    const filter = pick(req.query, ["departureAirport", "arrivalAirport", "planeId", "price"]);
-    const options = pick(req.query, ["sortBy", "limit", "page"]);
+    const filter = pick(req.query, ["planeId"]);
+    const options = pick(req.query, ["page", "limit", "sortBy"]);
     const result = await flightService.queryFlights(filter, options);
     res.status(200).send(result);
 });

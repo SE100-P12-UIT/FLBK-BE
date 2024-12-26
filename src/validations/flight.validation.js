@@ -22,11 +22,10 @@ const createFlight = {
 
 const getFlights = {
     query: Joi.object().keys({
-        departureAirport: Joi.string().custom(objectId),
-        arrivalAirport: Joi.string().custom(objectId),
         planeId: Joi.string().custom(objectId),
         limit: Joi.number().integer(),
         page: Joi.number().integer(),
+        sortBy: Joi.string(),
     }),
 };
 

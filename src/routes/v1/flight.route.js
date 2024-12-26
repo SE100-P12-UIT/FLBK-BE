@@ -4,7 +4,6 @@ const validate = require("../../middlewares/validate");
 const flightValidation = require("../../validations/flight.validation");
 const flightController = require("../../controllers/flight.controller");
 
-
 const router = express.Router();
 
 router
@@ -38,6 +37,7 @@ router
         flightController.deleteFlight
     );
 
+
 // router
 //     .route("/search-flight-by-number/:flightNumber")
 //     .get(
@@ -45,8 +45,8 @@ router
 //         validate(flightValidation.searchFlightByNumber),
 //         flightController.searchFlightByNumber
 //     );
-// npm
 
+module.exports = router;
 /**
  * @swagger
  * tags:
@@ -87,20 +87,29 @@ router
  *       - bearerAuth: []
  *     parameters:
  *       - in: query
- *         name: page
+ *         name: planeid
  *         schema:
- *           type: integer
- *         description: Page number
- *       - in: query
- *         name: limit
- *         schema:
- *           type: integer
- *         description: Maximum number of flights per page
+ *           type: string
+ *         description: plane id
  *       - in: query
  *         name: sortBy
  *         schema:
  *           type: string
- *         description: Sort by field and order (e.g., 'date:desc')
+ *         description: sort by query in the form of field:desc/asc (ex. name:asc)
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *         default: 10
+ *         description: Maximum number of users
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           default: 1
+ *         description: Page number
  *     responses:
  *       "200":
  *         description: List of flights
@@ -201,6 +210,3 @@ router
  *         $ref: '#/components/responses/Forbidden'
  */
 
-
-
-module.exports = router;
