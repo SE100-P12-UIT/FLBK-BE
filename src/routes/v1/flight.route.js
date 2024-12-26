@@ -22,7 +22,7 @@ router
 router
     .route("/:flightId")
     .get(
-        auth("getFlights"),
+        auth("manageFlights"),
         validate(flightValidation.getFlight),
         flightController.getFlight
     )
