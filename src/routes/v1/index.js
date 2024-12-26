@@ -4,6 +4,7 @@ const authRoute = require("./auth.route");
 const docsRoute = require("./docs.route");
 const roleRoute = require("./role.route");
 const ticketTypesRoute = require("./ticketTypes.route");
+const planeRoute = require("./plane.route");
 const config = require("../../config/config");
 
 const router = express.Router();
@@ -26,8 +27,12 @@ const defaultRoutes = [
     route: roleRoute,
   },
   {
-    path: "/ticketTypes",
+    path: "/ticketType",
     route: ticketTypesRoute,
+  },
+  {
+    path: "/plane",
+    route: planeRoute,
   },
 ];
 

@@ -19,7 +19,9 @@ const allRoles = {
   admin: [
     "manageEmployees",
     "getUsers",
+    "getFlights",
     "searchUserByEmail",
+    "managePlanes",
     "manageUsers",
     "manageRoles",
     "manageTicketTypes",

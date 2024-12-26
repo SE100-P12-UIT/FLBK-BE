@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { toJSON, paginate } = require("./plugins");
 
-const ticketSchema = mongoose.Schema(
+const ticketSchema = new mongoose.Schema(
   {
     seatId: {
       type: mongoose.Schema.Types.ObjectId,

@@ -98,6 +98,45 @@ components:
       example:
         typeName: common
         coefficient: 0.5
+    Plane:
+      type: object
+      properties:
+        planeName:
+          type: string
+        maxSeats:
+          type: number
+        airline:
+          type: string
+        seats:
+          type: array
+          items:
+            type: object
+            properties:
+              seatName:
+                type: string
+              seatType:
+                type: string
+                enum:
+                  - business
+                  - common
+              disable:
+                type: boolean
+      example:
+        planeName: Airbus A320
+        maxSeats: 186
+        airline: Vietnam Airlines
+        seats:
+          - seatName: "1A"
+            seatType: "business"
+            disable: false
+          - seatName: "1B"
+            seatType: "business"
+            disable: false
+          - seatName: "2A"
+            seatType: "common"
+            disable: false
+          - seatName: "3A"
+            disable: true
   responses:
     DuplicateEmail:
       description: Email already taken

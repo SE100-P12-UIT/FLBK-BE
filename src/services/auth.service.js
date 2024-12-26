@@ -22,7 +22,7 @@ const logout = async (refreshToken) => {
   if (!refreshTokenDoc) {
     throw new ApiError(404, "Not found");
   }
-  await refreshTokenDoc.remove();
+  await Token.deleteOne({ _id: refreshTokenDoc._id });
 };
 
 const refreshAuth = async (refreshToken) => {

@@ -15,7 +15,7 @@ const router = express.Router();
 
 /**
  * @swagger
- *  /ticketTypes/createTicketType:
+ *  /ticketType/createTicketType:
  *    post:
  *      summary: Create a ticket type
  *      description: Only admins can create other ticket type.
@@ -54,7 +54,7 @@ router.post(
 
 /**
  * @swagger
- *  /ticketTypes/getTicketTypes:
+ *  /ticketType/getTicketTypes:
  *    get:
  *     summary: Get all ticket types
  *     description: Only admins can get all ticket types.
@@ -88,7 +88,7 @@ router.get(
 
 /**
  * @swagger
- *  /ticketTypes/getTicketType/{ticketTypeId}:
+ *  /ticketType/getTicketType/{ticketTypeId}:
  *    get:
  *     summary: Get a ticket type by ID
  *     description: Only admins can get a ticket type by ID.
@@ -129,7 +129,7 @@ router.get(
 
 /**
  * @swagger
- *  /ticketTypes/updateTicketType/{ticketTypeId}:
+ *  /ticketType/updateTicketType/{ticketTypeId}:
  *    patch:
  *     summary: Update a ticket type by ID
  *     description: Only admins can update a ticket type by ID.
@@ -177,7 +177,7 @@ router.patch(
 
 /**
  * @swagger
- *  /ticketTypes/deleteTicketType/{ticketTypeId}:
+ *  /ticketType/deleteTicketType/{ticketTypeId}:
  *   delete:
  *    summary: Delete a role by ID
  *    description: Only admins can delete a role by ID.

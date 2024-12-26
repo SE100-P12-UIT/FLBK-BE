@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { toJSON } = require("./plugins");
 
-const airportSchema = mongoose.Schema({
+const airportSchema = new mongoose.Schema({
   airportName: {
     type: String,
     required: true,
