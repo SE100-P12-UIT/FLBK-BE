@@ -20,6 +20,7 @@ const flightSchema = new mongoose.Schema({
         trim: true,
         required: true,
       },
+      _id: false,
     },
   ],
   departureTime: {
@@ -49,6 +50,7 @@ const flightSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
       },
+      _id: false,
     },
   ],
 });

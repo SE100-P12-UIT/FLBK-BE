@@ -19,7 +19,6 @@ const planeSchema = new mongoose.Schema({
   },
   total: {
     type: Number,
-    required: true,
     default: 0,
   },
   seats: [
@@ -37,6 +36,7 @@ const planeSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
       },
+      _id: false,
     },
   ],
 });
