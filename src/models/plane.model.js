@@ -17,10 +17,6 @@ const planeSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  total: {
-    type: Number,
-    default: 0,
-  },
   seats: [
     {
       seatName: {
