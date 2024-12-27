@@ -5,6 +5,7 @@ const createPlane = {
     planeName: Joi.string().required(),
     maxSeats: Joi.number().required(),
     airline: Joi.string().required(),
+    total: Joi.number().default(0).required(),
     seats: Joi.array()
       .items(
         Joi.object().keys({
@@ -21,6 +22,7 @@ const updatePlane = {
   body: Joi.object().keys({
     planeName: Joi.string(),
     maxSeats: Joi.number(),
+    airline: Joi.string(),
     airline: Joi.string(),
     seats: Joi.array().items(
       Joi.object().keys({

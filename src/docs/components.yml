@@ -118,6 +118,8 @@ components:
           type: number
         airline:
           type: string
+        total:
+          type: number
         seats:
           type: array
           items:
@@ -136,17 +138,18 @@ components:
         planeName: Airbus A320
         maxSeats: 186
         airline: Vietnam Airlines
+        total: 1
         seats:
-          - seatName: "1A"
+          - seatName: "A1"
             seatType: "business"
             disable: false
-          - seatName: "1B"
+          - seatName: "B1"
             seatType: "business"
             disable: false
-          - seatName: "2A"
+          - seatName: "A2"
             seatType: "common"
             disable: false
-          - seatName: "3A"
+          - seatName: "A3"
             disable: true
     Flight:
       type: object
@@ -193,9 +196,9 @@ components:
         price: 150.50
         planeId: "64c8d45b634c3c0012345680"
         seats:
-          - seatId: "1A"
+          - seatId: "A1"
             isAvailable: true
-          - seatId: "1B"
+          - seatId: "B1"
             isAvailable: false
 
   responses:
