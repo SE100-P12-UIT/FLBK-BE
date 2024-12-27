@@ -1,21 +1,12 @@
 const allRoles = {
   user: [
     "bookFlight",
-    "viewFlight",
+    "getFlights",
     "cancelFlight",
     "viewHistoryBookFlight",
     "searchUserByEmail",
   ],
-  employee: [
-    "viewFlight",
-    "getUsers",
-    "searchUserByEmail",
-    "searchUserInfo",
-    "insertFlightSchedule",
-    "recordBookFlight",
-    "recordCancelFlight",
-    "createReport",
-  ],
+  employee: ["getUsers", "searchUserByEmail", "manageFlights", "getFlights"],
   admin: [
     "manageEmployees",
     "getUsers",
