@@ -28,7 +28,7 @@ const defaultRoutes = [
     route: roleRoute,
   },
   {
-    path: "/flights",
+    path: "/flight",
     route: flightRoute,
   },
   {

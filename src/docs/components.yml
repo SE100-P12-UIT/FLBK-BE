@@ -148,57 +148,46 @@ components:
             disable: false
           - seatName: "3A"
             disable: true
-
     Flight:
       type: object
       properties:
-        id:
+        flightName:
           type: string
-          description: Unique identifier for the flight
-        departureAirport:
-          type: string
-          description: Reference to the departure airport ID
-          example: "64c8d45b634c3c0012345678"
-        arrivalAirport:
-          type: string
-          description: Reference to the arrival airport ID
-          example: "64c8d45b634c3c0012345679"
+        route:
+          type: array
+          items:
+            type: object
+            properties:
+              airport:
+                type: string
+              location:
+                type: string
         departureTime:
           type: string
           format: date-time
-          description: The departure time of the flight
-          example: "2024-01-01T12:00:00.000Z"
         duration:
           type: integer
-          description: Duration of the flight in minutes
-          example: 180
         price:
           type: number
           format: double
-          description: Price of the flight ticket
-          example: 150.50
         planeId:
           type: string
-          description: Reference to the plane ID
-          example: "64c8d45b634c3c0012345680"
         seats:
           type: array
-          description: List of seat availability for the flight
           items:
             type: object
             properties:
               seatId:
                 type: string
-                description: Unique identifier for the seat
-                example: "1A"
               isAvailable:
                 type: boolean
-                description: Indicates whether the seat is available
-                example: true
       example:
-        id: "64c8d45b634c3c0012345677"
-        departureAirport: "64c8d45b634c3c0012345678"
-        arrivalAirport: "64c8d45b634c3c0012345679"
+        flightName: "VN123"
+        route:
+          - airport: Noi Bai
+            location: Ha Noi
+          - airport: Tan Son Nhat
+            location: Ho Chi Minh
         departureTime: "2024-01-01T12:00:00.000Z"
         duration: 180
         price: 150.50

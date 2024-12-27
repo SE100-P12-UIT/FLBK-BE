@@ -1,11 +1,9 @@
 const Flight = require("../models/flight.model");
 const ApiError = require("../utils/ApiError");
 
-
 const createFlight = async (flightBody) => {
   return Flight.create(flightBody);
 };
-
 
 const queryFlights = async (filter, options) => {
   const flights = await Flight.paginate(filter, options);
@@ -13,7 +11,7 @@ const queryFlights = async (filter, options) => {
 };
 
 const getFlightById = async (id) => {
-  return await Flight.findById(id).populate("departureAirport arrivalAirport");
+  return await Flight.findById(id);
 };
 
 const updateFlightById = async (flightId, updateBody) => {
@@ -27,11 +25,11 @@ const updateFlightById = async (flightId, updateBody) => {
 };
 
 const deleteFlightById = async (flightId) => {
-  const flight = await getFlightById(flightId);
+  const flight = await Flight.findByIdAndDelete(flightId);
   if (!flight) {
     throw new ApiError(404, "Flight not found");
   }
-  await flight.remove();
+  return flight;
 };
 
 module.exports = {

@@ -7,44 +7,35 @@ const flightController = require("../../controllers/flight.controller");
 const router = express.Router();
 
 router
-    .route("/")
-    .post(
-        auth("manageFlights"),
-        validate(flightValidation.createFlight),
-        flightController.createFlight
-    )
-    .get(
-        auth("manageFlights"),
-        validate(flightValidation.getFlights),
-        flightController.getFlights
-    );
+  .route("/")
+  .post(
+    auth("manageFlights"),
+    validate(flightValidation.createFlight),
+    flightController.createFlight
+  )
+  .get(
+    auth("manageFlights"),
+    validate(flightValidation.getFlights),
+    flightController.getFlights
+  );
 
 router
-    .route("/:flightId")
-    .get(
-        auth("manageFlights"),
-        validate(flightValidation.getFlight),
-        flightController.getFlight
-    )
-    .patch(
-        auth("manageFlights"),
-        validate(flightValidation.updateFlight),
-        flightController.updateFlight
-    )
-    .delete(
-        auth("manageFlights"),
-        validate(flightValidation.deleteFlight),
-        flightController.deleteFlight
-    );
-
-
-// router
-//     .route("/search-flight-by-number/:flightNumber")
-//     .get(
-//         auth("searchFlightByNumber"),
-//         validate(flightValidation.searchFlightByNumber),
-//         flightController.searchFlightByNumber
-//     );
+  .route("/:flightId")
+  .get(
+    auth("manageFlights"),
+    validate(flightValidation.getFlight),
+    flightController.getFlight
+  )
+  .patch(
+    auth("manageFlights"),
+    validate(flightValidation.updateFlight),
+    flightController.updateFlight
+  )
+  .delete(
+    auth("manageFlights"),
+    validate(flightValidation.deleteFlight),
+    flightController.deleteFlight
+  );
 
 module.exports = router;
 /**
@@ -56,7 +47,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /flights:
+ * /flight:
  *   post:
  *     summary: Create a flight
  *     tags: [Flights]
@@ -87,7 +78,7 @@ module.exports = router;
  *       - bearerAuth: []
  *     parameters:
  *       - in: query
- *         name: planeid
+ *         name: planeId
  *         schema:
  *           type: string
  *         description: plane id
@@ -136,7 +127,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /flights/{flightId}:
+ * /flight/{flightId}:
  *   get:
  *     summary: Get a flight by ID
  *     tags: [Flights]
@@ -209,4 +200,3 @@ module.exports = router;
  *       "403":
  *         $ref: '#/components/responses/Forbidden'
  */
-
