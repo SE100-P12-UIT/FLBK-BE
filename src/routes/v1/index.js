@@ -3,6 +3,7 @@ const userRoute = require("./user.route");
 const authRoute = require("./auth.route");
 const docsRoute = require("./docs.route");
 const roleRoute = require("./role.route");
+const flightRoute = require("./flight.route");
 const ticketTypesRoute = require("./ticketTypes.route");
 const planeRoute = require("./plane.route");
 const config = require("../../config/config");
@@ -25,6 +26,10 @@ const defaultRoutes = [
   {
     path: "/role",
     route: roleRoute,
+  },
+  {
+    path: "/flight",
+    route: flightRoute,
   },
   {
     path: "/ticketType",

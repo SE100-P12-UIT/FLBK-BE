@@ -2,16 +2,27 @@ const mongoose = require("mongoose");
 const { toJSON, paginate } = require("./plugins");
 
 const flightSchema = new mongoose.Schema({
-  departureAirport: {
-    type: mongoose.Schema.Types.ObjectId,
+  flightName: {
+    type: String,
     required: true,
-    ref: "Airports",
+    unique: true,
+    trim: true,
   },
-  arrivalAirport: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: "Airports",
-  },
+  route: [
+    {
+      airport: {
+        type: String,
+        unique: true,
+        trim: true,
+        required: true,
+      },
+      location: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+    },
+  ],
   departureTime: {
     type: Date,
     required: true,
