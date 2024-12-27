@@ -14,7 +14,7 @@ router
     flightController.createFlight
   )
   .get(
-    auth("manageFlights"),
+    auth("getFlights"),
     validate(flightValidation.getFlights),
     flightController.getFlights
   );
@@ -22,7 +22,7 @@ router
 router
   .route("/:flightId")
   .get(
-    auth("manageFlights"),
+    auth("getFlights"),
     validate(flightValidation.getFlight),
     flightController.getFlight
   )
