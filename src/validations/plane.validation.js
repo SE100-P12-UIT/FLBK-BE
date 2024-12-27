@@ -3,9 +3,9 @@ const Joi = require("joi");
 const createPlane = {
   body: Joi.object().keys({
     planeName: Joi.string().required(),
-    maxSeats: Joi.number().required(),
+    maxSeats: Joi.number().required().positive(),
     airline: Joi.string().required(),
-    total: Joi.number().default(0).required(),
+    total: Joi.number().default(0).positive(),
     seats: Joi.array()
       .items(
         Joi.object().keys({
@@ -21,9 +21,9 @@ const createPlane = {
 const updatePlane = {
   body: Joi.object().keys({
     planeName: Joi.string(),
-    maxSeats: Joi.number(),
+    maxSeats: Joi.number().positive(),
     airline: Joi.string(),
-    airline: Joi.string(),
+    total: Joi.number().positive(),
     seats: Joi.array().items(
       Joi.object().keys({
         seatName: Joi.string(),
