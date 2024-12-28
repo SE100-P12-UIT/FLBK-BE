@@ -32,7 +32,7 @@ const flightSchema = new mongoose.Schema({
     required: true,
   },
   price: {
-    type: mongoose.Schema.Types.Decimal128,
+    type: Number,
     required: true,
   },
   planeId: {
