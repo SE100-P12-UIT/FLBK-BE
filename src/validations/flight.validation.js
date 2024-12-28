@@ -4,14 +4,8 @@ const { objectId } = require("./custom.validation");
 const createFlight = {
   body: Joi.object().keys({
     flightName: Joi.string().required(),
-    route: Joi.array()
-      .items(
-        Joi.object().keys({
-          airport: Joi.string().required(),
-          location: Joi.string().required(),
-        })
-      )
-      .required(),
+    departureAirport: Joi.string().required(),
+    arrivalAirport: Joi.string().required(),
     departureTime: Joi.date().required(),
     duration: Joi.number().required(),
     price: Joi.number().positive().required(),
@@ -49,12 +43,8 @@ const updateFlight = {
   body: Joi.object()
     .keys({
       flightName: Joi.string(),
-      route: Joi.array().items(
-        Joi.object().keys({
-          airport: Joi.string(),
-          location: Joi.string(),
-        })
-      ),
+      departureAirport: Joi.string(),
+      arrivalAirport: Joi.string(),
       departureTime: Joi.date(),
       duration: Joi.number(),
       price: Joi.number().positive(),
