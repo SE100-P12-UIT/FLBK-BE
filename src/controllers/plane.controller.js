@@ -1,4 +1,5 @@
 const catchAsync = require("../utils/catchAsync");
+const pick = require("../utils/pick");
 const planeService = require("../services/plane.service");
 
 const createPlane = catchAsync(async (req, res) => {
@@ -7,7 +8,9 @@ const createPlane = catchAsync(async (req, res) => {
 });
 
 const getPlanes = catchAsync(async (req, res) => {
-  const planes = await planeService.getPlanes();
+  const filter = pick(req.query, ["airline"]);
+  const options = pick(req.query, ["sortBy", "limit", "page"]);
+  const planes = await planeService.getPlanes(filter, options);
   res.status(200).send(planes);
 });
 

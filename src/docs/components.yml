@@ -153,15 +153,10 @@ components:
       properties:
         flightName:
           type: string
-        route:
-          type: array
-          items:
-            type: object
-            properties:
-              airport:
-                type: string
-              location:
-                type: string
+        departureAirport:
+          type: string
+        arrivalAirport:
+          type: string
         departureTime:
           type: string
           format: date-time
@@ -182,11 +177,8 @@ components:
                 type: boolean
       example:
         flightName: "VN123"
-        route:
-          - airport: Noi Bai
-            location: Ha Noi
-          - airport: Tan Son Nhat
-            location: Ho Chi Minh
+        departureAirport: "Ha Noi"
+        arrivalAirport: "Ho Chi Minh"
         departureTime: "2024-01-01T12:00:00.000Z"
         duration: 180
         price: 150

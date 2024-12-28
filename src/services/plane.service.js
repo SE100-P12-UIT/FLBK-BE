@@ -8,8 +8,8 @@ const createPlane = async (planeBody) => {
   return Plane.create(planeBody);
 };
 
-const getPlanes = async () => {
-  return await Plane.find();
+const getPlanes = async (filter, options) => {
+  return await Plane.paginate(filter, options);
 };
 
 const getPlane = async (planeId) => {

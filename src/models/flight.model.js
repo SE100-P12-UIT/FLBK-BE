@@ -8,21 +8,14 @@ const flightSchema = new mongoose.Schema({
     unique: true,
     trim: true,
   },
-  route: [
-    {
-      airport: {
-        type: String,
-        trim: true,
-        required: true,
-      },
-      location: {
-        type: String,
-        trim: true,
-        required: true,
-      },
-      _id: false,
-    },
-  ],
+  departureAirport: {
+    type: String,
+    required: true,
+  },
+  arrivalAirport: {
+    type: String,
+    required: true,
+  },
   departureTime: {
     type: Date,
     required: true,
