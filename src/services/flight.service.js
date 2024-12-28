@@ -32,10 +32,39 @@ const deleteFlightById = async (flightId) => {
   return flight;
 };
 
+const getFlightByDepartureAirport = async (departureAirport) => {
+  const flights = await Flight.find({ departureAirport: departureAirport });
+  if (!flights) {
+    throw new ApiError(404, "Flight not found");
+  }
+  console.log(flights);
+
+  return flights;
+};
+
+const getFlightByArrivalAirport = async (arrivalAirport) => {
+  const flights = await Flight.find({ arrivalAirport: arrivalAirport });
+  if (!flights) {
+    throw new ApiError(404, "Flight not found");
+  }
+  return flights;
+};
+
+const getFlightByDepartureTime = async (departureTime) => {
+  const flights = await Flight.find({ departureTime: departureTime });
+  if (!flights) {
+    throw new ApiError(404, "Flight not found");
+  }
+  return flights;
+};
+
 module.exports = {
   createFlight,
   queryFlights,
   getFlightById,
   updateFlightById,
   deleteFlightById,
+  getFlightByArrivalAirport,
+  getFlightByDepartureAirport,
+  getFlightByDepartureTime,
 };

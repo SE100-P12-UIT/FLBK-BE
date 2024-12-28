@@ -65,10 +65,31 @@ const deleteFlight = {
   }),
 };
 
+const getFlightByArrivalAirport = {
+  params: Joi.object().keys({
+    arrivalAirport: Joi.string().required(),
+  }),
+};
+
+const getFlightByDepartureAirport = {
+  params: Joi.object().keys({
+    departureAirport: Joi.string().required(),
+  }),
+};
+
+const getFlightByDepartureTime = {
+  params: Joi.object().keys({
+    departureTime: Joi.string().isoDate().required(),
+  }),
+};
+
 module.exports = {
   createFlight,
   getFlights,
   getFlight,
   updateFlight,
   deleteFlight,
+  getFlightByArrivalAirport,
+  getFlightByDepartureAirport,
+  getFlightByDepartureTime,
 };
