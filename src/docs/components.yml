@@ -169,7 +169,6 @@ components:
           type: integer
         price:
           type: number
-          format: double
         planeId:
           type: string
         seats:
@@ -190,7 +189,7 @@ components:
             location: Ho Chi Minh
         departureTime: "2024-01-01T12:00:00.000Z"
         duration: 180
-        price: 150.50
+        price: 150
         planeId: "64c8d45b634c3c0012345680"
         seats:
           - seatId: "1A"
