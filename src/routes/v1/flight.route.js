@@ -37,6 +37,30 @@ router
     flightController.deleteFlight
   );
 
+router
+  .route("/getFlightByDepartureAirport/:departureAirport")
+  .get(
+    auth("getFlights"),
+    validate(flightValidation.getFlightByDepartureAirport),
+    flightController.getFlightByDepartureAirport
+  );
+
+router
+  .route("/getFlightByArrivalAirport/:arrivalAirport")
+  .get(
+    auth("getFlights"),
+    validate(flightValidation.getFlightByArrivalAirport),
+    flightController.getFlightByArrivalAirport
+  );
+
+router
+  .route("/getFlightByDepartureTime/:departureTime")
+  .get(
+    auth("getFlights"),
+    validate(flightValidation.getFlightByDepartureTime),
+    flightController.getFlightByDepartureTime
+  );
+
 module.exports = router;
 /**
  * @swagger
@@ -199,4 +223,82 @@ module.exports = router;
  *         $ref: '#/components/responses/NotFound'
  *       "403":
  *         $ref: '#/components/responses/Forbidden'
+ */
+
+/**
+ * @swagger
+ * /flight/getFlightByDepartureAirport/{departureAirport}:
+ *   get:
+ *     summary: Get flights by departure airport
+ *     tags: [Flights]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: departureAirport
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Airport name
+ *     responses:
+ *       "200":
+ *         description: Get flights by departure airport successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Flight'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /flight/getFlightByArrivalAirport/{arrivalAirport}:
+ *   get:
+ *     summary: Get flights by arrival airport
+ *     tags: [Flights]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: arrivalAirport
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Airport name
+ *     responses:
+ *       "200":
+ *         description: Get flights by arrival airport successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Flight'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /flight/getFlightByDepartureTime/{departureTime}:
+ *   get:
+ *     summary: Get flights by departure time
+ *     tags: [Flights]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: departureTime
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Departure time
+ *     responses:
+ *       "200":
+ *         description: Get flights by departure time successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Flight'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
  */
