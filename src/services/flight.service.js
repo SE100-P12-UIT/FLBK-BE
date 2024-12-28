@@ -37,8 +37,6 @@ const getFlightByDepartureAirport = async (departureAirport) => {
   if (!flights) {
     throw new ApiError(404, "Flight not found");
   }
-  console.log(flights);
-
   return flights;
 };
 
