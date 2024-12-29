@@ -13,7 +13,8 @@ const createFlight = {
     seats: Joi.array()
       .items(
         Joi.object({
-          seatId: Joi.string().required(),
+          seatName: Joi.string().required(),
+          seatType: Joi.string().optional().valid("business", "common"),
           isAvailable: Joi.boolean().required(),
         })
       )
@@ -51,7 +52,8 @@ const updateFlight = {
       planeId: Joi.string().custom(objectId),
       seats: Joi.array().items(
         Joi.object({
-          seatId: Joi.string(),
+          seatName: Joi.string().required(),
+          seatType: Joi.string().optional().valid("business", "common"),
           isAvailable: Joi.boolean(),
         })
       ),
