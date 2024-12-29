@@ -18,7 +18,6 @@ const flightSchema = new mongoose.Schema({
   },
   departureTime: {
     type: Date,
-    required: true,
   },
   duration: {
     type: Number,
@@ -35,9 +34,14 @@ const flightSchema = new mongoose.Schema({
   },
   seats: [
     {
-      seatId: {
+      seatName: {
         type: String,
         required: true,
+      },
+      seatType: {
+        type: String,
+        required: false,
+        enum: ["business", "common"],
       },
       isAvailable: {
         type: Boolean,
