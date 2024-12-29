@@ -14,6 +14,11 @@ const getPlanes = catchAsync(async (req, res) => {
   res.status(200).send(planes);
 });
 
+const getPlanesWithoutPaginate = catchAsync(async (req, res) => {
+  const planes = await planeService.getPlanesWithoutPaginate();
+  res.status(200).send(planes);
+});
+
 const getPlane = catchAsync(async (req, res) => {
   const plane = await planeService.getPlane(req.params.planeId);
   res.status(200).send(plane);
@@ -32,6 +37,7 @@ const deletePlane = catchAsync(async (req, res) => {
 module.exports = {
   createPlane,
   getPlanes,
+  getPlanesWithoutPaginate,
   getPlane,
   updatePlane,
   deletePlane,

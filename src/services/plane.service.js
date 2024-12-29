@@ -12,6 +12,10 @@ const getPlanes = async (filter, options) => {
   return await Plane.paginate(filter, options);
 };
 
+const getPlanesWithoutPaginate = async () => {
+  return await Plane.find();
+};
+
 const getPlane = async (planeId) => {
   const plane = await Plane.findById(planeId);
   if (!plane) {
@@ -41,6 +45,7 @@ const deletePlane = async (planeId) => {
 module.exports = {
   createPlane,
   getPlanes,
+  getPlanesWithoutPaginate,
   getPlane,
   updatePlane,
   deletePlane,
