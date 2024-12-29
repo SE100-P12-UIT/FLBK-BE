@@ -6,7 +6,13 @@ const allRoles = {
     "viewHistoryBookFlight",
     "searchUserByEmail",
   ],
-  employee: ["getUsers", "searchUserByEmail", "manageFlights", "getFlights"],
+  employee: [
+    "getUsers",
+    "searchUserByEmail",
+    "manageFlights",
+    "getFlights",
+    "managePlanes",
+  ],
   admin: [
     "manageEmployees",
     "getUsers",
