@@ -221,10 +221,45 @@ router.patch(
  *      "500":
  *        $ref: '#/components/responses/InternalServerError'
  */
+
 router.delete(
   "/deletePlane/:planeId",
   auth("managePlanes"),
   planeController.deletePlane
+);
+
+/**
+ * @swagger
+ *  /plane/getPlaneWithoutPaginate:
+ *   get:
+ *    summary: Get all planes
+ *    description: Get all planes.
+ *    tags: [Planes]
+ *    security:
+ *      - bearerAuth: []
+ *    responses:
+ *      "200":
+ *        description: Planes retrieved successfully
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/Plane'
+ *      "400":
+ *        $ref: '#/components/responses/BadRequest'
+ *      "401":
+ *        $ref: '#/components/responses/Unauthorized'
+ *      "403":
+ *        $ref: '#/components/responses/Forbidden'
+ *      "500":
+ *        $ref: '#/components/responses/InternalServerError'
+ */
+
+router.get(
+  "/getPlaneWithoutPaginate",
+  auth("managePlanes"),
+  planeController.getPlanesWithoutPaginate
 );
 
 module.exports = router;
