@@ -3,18 +3,34 @@ const { toJSON, paginate } = require("./plugins");
 
 const receiptSchema = new mongoose.Schema(
   {
-    total: {
-      type: mongoose.Schema.Types.Decimal128,
-      required: true,
-    },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "Users",
     },
+    total: {
+      type: Number,
+      required: true,
+    },
+    totalTickets: {
+      type: Number,
+      required: true,
+    },
+    isRoundTrip: {
+      type: Boolean,
+      required: true,
+    },
+    departureTicket: {
+      type: [mongoose.Schema.Types.ObjectId],
+      required: false,
+    },
+    returnTicket: {
+      type: [mongoose.Schema.Types.ObjectId],
+      required: false,
+    },
   },
   {
-    timestamp: true,
+    timestamps: true,
   }
 );
 

@@ -109,6 +109,7 @@ components:
       example:
         typeName: "common"
         coefficient: 0.5
+
     Plane:
       type: object
       properties:
@@ -148,6 +149,7 @@ components:
             disable: false
           - seatName: "3A"
             disable: true
+
     Flight:
       type: object
       properties:
@@ -196,6 +198,134 @@ components:
             seatType: "business"
             isAvailable: true
 
+    Ticket:
+      type: Object
+      properties:
+        userId:
+          type: string
+        passenger:
+          type: object
+          properties:
+            title:
+              type: string
+            name:
+              type: string
+            dateOfBirth:
+              type: string
+        seatName:
+          type: string
+        seatType:
+          type: string
+          enum:
+            - business
+            - common
+        totalPrice:
+          type: number
+        flight:
+          type: object
+          properties:
+            flightName:
+              type: string
+            departureAirport:
+              type: string
+            arrivalAirport:
+              type: string
+            departureTime:
+              type: string
+        receiptId:
+          type: string
+        status:
+          type: string
+          enum:
+            - Verifying
+            - PendingCancel
+            - Invalid
+            - Canceled
+            - Success
+        note:
+          type: string
+      example:
+        userId: "676e871f9cf4f5b4d86c9587"
+        passenger:
+          title: "Ông"
+          name: "Đặng Thái Tuấn"
+          dateOfBirth: "01-01-2004"
+        seatName: "6B"
+        seatType: "bussiness"
+        totalPrice: "1500000"
+        flight:
+          flightName: "VN111"
+          departureAirport: "Hồ Chí Minh"
+          arrivalAirport: "Hà Nội"
+          departureTime: "2024-12-30T19:00:00.000+00:00"
+        receiptId: "123"
+        status: "Verifying"
+
+    CreateTicket:
+      type: Object
+      properties:
+        userId:
+          type: string
+        passenger:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              name:
+                type: string
+              dateOfBirth:
+                type: string
+        departureFlight:
+          type: object
+          properties:
+            flightName:
+              type: string
+            departureAirport:
+              type: string
+            arrivalAirport:
+              type: string
+            departureTime:
+              type: string
+            seatType:
+              type: string
+              enum:
+                - business
+                - common
+            totalPrice:
+              type: number
+        returnFlight:
+          type: object
+          properties:
+            flightName:
+              type: string
+            departureAirport:
+              type: string
+            arrivalAirport:
+              type: string
+            departureTime:
+              type: string
+            seatType:
+              type: string
+              enum:
+                - business
+                - common
+            totalPrice:
+              type: number
+      example:
+        userId: "676e871f9cf4f5b4d86c9587"
+        passenger:
+          - title: "Ông"
+            name: "Đặng Thái Tuấn"
+            dateOfBirth: "01-01-2004"
+        departureFlight:
+          flightName: "VN1117"
+          departureAirport: "Hồ Chí Minh"
+          arrivalAirport: "Hà Nội"
+          departureTime: "2024-12-28T16:00:00.000+00:00"
+          seatType: "business"
+          totalPrice: 1500000
   responses:
     ValidationError:
       description: Validation error
