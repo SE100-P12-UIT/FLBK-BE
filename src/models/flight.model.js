@@ -8,10 +8,6 @@ const flightSchema = new mongoose.Schema({
     unique: true,
     trim: true,
   },
-  airline: {
-    type: String,
-    required: true,
-  },
   departureAirport: {
     type: String,
     required: true,
@@ -31,10 +27,15 @@ const flightSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  planeId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: "Planes",
+  plane: {
+    planeName: {
+      type: String,
+      required: true,
+    },
+    airline: {
+      type: String,
+      required: true,
+    },
   },
   seats: [
     {
