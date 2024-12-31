@@ -8,6 +8,10 @@ const flightSchema = new mongoose.Schema({
     unique: true,
     trim: true,
   },
+  airline: {
+    type: String,
+    required: true,
+  },
   departureAirport: {
     type: String,
     required: true,
