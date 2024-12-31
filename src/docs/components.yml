@@ -155,8 +155,6 @@ components:
       properties:
         flightName:
           type: string
-        airline:
-          type: string
         departureAirport:
           type: string
         arrivalAirport:
@@ -168,8 +166,13 @@ components:
           type: integer
         price:
           type: number
-        planeId:
-          type: string
+        plane:
+          type: object
+          properties:
+            planeName:
+              type: string
+            airline:
+              type: string
         seats:
           type: array
           items:
@@ -192,7 +195,9 @@ components:
         departureTime: "2024-01-01T12:00:00.000Z"
         duration: 180
         price: 150
-        planeId: "64c8d45b634c3c0012345680"
+        plane:
+          planeName: "Airbus A320"
+          airline: "VietnamAirline"
         seats:
           - seatName: "1A"
             seatType: "business"
