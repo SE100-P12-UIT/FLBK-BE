@@ -56,6 +56,38 @@ const getFlightByDepartureTime = async (departureTime) => {
   return flights;
 };
 
+const getSeats = async (flightName, seatType) => {
+  const seats = await Flight.aggregate([
+    { $match: { flightName: flightName } },
+    { $unwind: "$seats" },
+    {
+      $match: {
+        "seats.seatType": seatType,
+        "seats.isAvailable": true,
+      },
+    },
+    { $project: { seats: 1, _id: 0 } },
+  ]);
+
+  return seats;
+};
+
+const updateStatusForSeats = async (flightName, seats, newStatus) => {
+  const bulkOperations = seats.map((seat) => ({
+    updateOne: {
+      filter: {
+        flightName: flightName,
+        "seats.seatName": seat.seats.seatName,
+      },
+      update: {
+        $set: { "seats.$.isAvailable": newStatus },
+      },
+    },
+  }));
+
+  return await Flight.bulkWrite(bulkOperations);
+};
+
 module.exports = {
   createFlight,
   queryFlights,
@@ -65,4 +97,6 @@ module.exports = {
   getFlightByArrivalAirport,
   getFlightByDepartureAirport,
   getFlightByDepartureTime,
+  getSeats,
+  updateStatusForSeats,
 };

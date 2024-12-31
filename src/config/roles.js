@@ -1,5 +1,6 @@
 const allRoles = {
   user: [
+    "createTickets",
     "bookFlight",
     "getFlights",
     "cancelFlight",
@@ -8,6 +9,7 @@ const allRoles = {
   ],
   employee: [
     "getUsers",
+    "createTickets",
     "searchUserByEmail",
     "manageFlights",
     "getFlights",
@@ -15,6 +17,7 @@ const allRoles = {
   ],
   admin: [
     "manageEmployees",
+    "createTickets",
     "getUsers",
     "getFlights",
     "searchUserByEmail",
