@@ -1,7 +1,6 @@
 const allRoles = {
   user: [
     "createTickets",
-    "bookFlight",
     "getFlights",
     "cancelFlight",
     "viewHistoryBookFlight",

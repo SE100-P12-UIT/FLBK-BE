@@ -155,6 +155,8 @@ components:
       properties:
         flightName:
           type: string
+        airline:
+          type: string
         departureAirport:
           type: string
         arrivalAirport:
@@ -184,6 +186,7 @@ components:
                 type: boolean
       example:
         flightName: "VN123"
+        airline: "VietnamAirline"
         departureAirport: "Ha Noi"
         arrivalAirport: "Ho Chi Minh"
         departureTime: "2024-01-01T12:00:00.000Z"
