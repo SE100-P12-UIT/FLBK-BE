@@ -36,13 +36,39 @@ const createTicket = {
     .optional(),
 };
 
-const getTicketsById = {
+const getTicketsByStatus = {
+  query: Joi.object().keys({
+    status: Joi.string().required(),
+  }),
+};
+
+const updateTicket = {
   body: Joi.object().keys({
-    idTickets: Joi.array().items(Joi.string().custom(objectId)),
+    userId: Joi.string().custom(objectId),
+    passenger: Joi.array().items(
+      Joi.object().keys({
+        title: Joi.string(),
+        name: Joi.string(),
+        dateOfBirth: Joi.date(),
+      })
+    ),
+    seatName: Joi.string(),
+    seatType: Joi.string(),
+    totalPrice: Joi.number(),
+    flight: Joi.object().keys({
+      flightName: Joi.string(),
+      departureAirport: Joi.string(),
+      arrivalAirport: Joi.string(),
+      departureTime: Joi.date(),
+    }),
+    receiptId: Joi.string().custom(objectId),
+    status: Joi.string(),
+    note: Joi.string(),
   }),
 };
 
 module.exports = {
   createTicket,
-  getTicketsById,
+  getTicketsByStatus,
+  updateTicket,
 };
