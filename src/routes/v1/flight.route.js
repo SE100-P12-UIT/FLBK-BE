@@ -21,21 +21,13 @@ router
 
 router
   .route("/:flightId")
-  .get(
-    auth("getFlights"),
-    validate(flightValidation.getFlight),
-    flightController.getFlight
-  )
+  .get(auth("getFlights"), flightController.getFlight)
   .patch(
     auth("manageFlights"),
     validate(flightValidation.updateFlight),
     flightController.updateFlight
   )
-  .delete(
-    auth("manageFlights"),
-    validate(flightValidation.deleteFlight),
-    flightController.deleteFlight
-  );
+  .delete(auth("manageFlights"), flightController.deleteFlight);
 
 router
   .route("/getFlightByDepartureAirport/:departureAirport")
@@ -60,6 +52,10 @@ router
     validate(flightValidation.getFlightByDepartureTime),
     flightController.getFlightByDepartureTime
   );
+
+router
+  .route("/filterFlights")
+  .post(auth("getFlights"), flightController.filterFlights);
 
 module.exports = router;
 /**
@@ -173,7 +169,6 @@ module.exports = router;
  *               $ref: '#/components/schemas/Flight'
  *       "404":
  *         $ref: '#/components/responses/NotFound'
- *
  *   patch:
  *     summary: Update a flight
  *     tags: [Flights]
@@ -301,4 +296,45 @@ module.exports = router;
  *               $ref: '#/components/schemas/Flight'
  *       "404":
  *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /flight/filterFlights:
+ *   post:
+ *     summary: Get flights with filter
+ *     tags: [Flights]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               departureAirport:
+ *                 type: string
+ *               arrivalAirport:
+ *                 type: string
+ *               departureTime:
+ *                 type: string
+ *                 format: date-time
+ *               airline:
+ *                 type: string
+ *     responses:
+ *       "200":
+ *         description: List of filter flights
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 results:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Flight'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *
  */

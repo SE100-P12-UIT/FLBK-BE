@@ -4,7 +4,6 @@ const { objectId } = require("./custom.validation");
 const createFlight = {
   body: Joi.object().keys({
     flightName: Joi.string().required(),
-
     departureAirport: Joi.string().required(),
     arrivalAirport: Joi.string().required(),
     departureTime: Joi.date().required(),
@@ -37,12 +36,6 @@ const getFlights = {
   }),
 };
 
-const getFlight = {
-  params: Joi.object().keys({
-    flightId: Joi.string().custom(objectId).required(),
-  }),
-};
-
 const updateFlight = {
   params: Joi.object().keys({
     flightId: Joi.string().custom(objectId).required(),
@@ -70,12 +63,6 @@ const updateFlight = {
     .min(1),
 };
 
-const deleteFlight = {
-  params: Joi.object().keys({
-    flightId: Joi.string().custom(objectId).required(),
-  }),
-};
-
 const getFlightByArrivalAirport = {
   params: Joi.object().keys({
     arrivalAirport: Joi.string().required(),
@@ -94,13 +81,21 @@ const getFlightByDepartureTime = {
   }),
 };
 
+const filterFlights = {
+  body: Joi.object().keys({
+    departureAirport: Joi.string().required(),
+    arrivalAirport: Joi.string().required(),
+    departureTime: Joi.string().isoDate().required(),
+    airline: Joi.string().optional(),
+  }),
+};
+
 module.exports = {
   createFlight,
   getFlights,
-  getFlight,
   updateFlight,
-  deleteFlight,
   getFlightByArrivalAirport,
   getFlightByDepartureAirport,
   getFlightByDepartureTime,
+  filterFlights,
 };
