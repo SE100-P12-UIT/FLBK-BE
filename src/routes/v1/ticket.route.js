@@ -52,4 +52,53 @@ router.post(
   ticketController.createTicket
 );
 
+/**
+ * @swagger
+ *  /ticket/getTicketsById:
+ *   post:
+ *    summary: get tickets
+ *    description: Users can get tickets by id
+ *    tags: [Tickets]
+ *    security:
+ *      - bearerAuth: []
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              idTickets:
+ *                type: array
+ *                items:
+ *                  type: string
+ *                description: Array of ticket IDs to retrieve
+ *            required:
+ *              - idTickets
+ *    responses:
+ *      "200":
+ *        description: Tickets retrieved successfully
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Ticket'
+ *      "400":
+ *        $ref: '#/components/responses/BadRequest'
+ *      "401":
+ *        $ref: '#/components/responses/Unauthorized'
+ *      "403":
+ *        $ref: '#/components/responses/Forbidden'
+ *      "404":
+ *        $ref: '#/components/responses/NotFound'
+ *      "500":
+ *        $ref: '#/components/responses/InternalServerError'
+ */
+
+router.post(
+  "/getTicketsById",
+  auth("getTickets"),
+  validate(ticketValidation.getTicketsById),
+  ticketController.getTicketsById
+);
+
 module.exports = router;

@@ -334,6 +334,33 @@ components:
           departureTime: "2024-12-28T16:00:00.000+00:00"
           seatType: "business"
           totalPrice: 1500000
+
+    Receipt:
+      type: object
+      properties:
+        userId:
+          type: string
+        total:
+          type: number
+        totalTickets:
+          type: number
+        isRoundTrip:
+          type: boolean
+        departureTicket:
+          type: array
+          items:
+            type: string
+        returnTicket:
+          type: array
+          items:
+            type: string
+      example:
+        userId: "676e871f9cf4f5b4d86c9587"
+        total: 1500000
+        totalTickets: 1
+        isRoundTrip: true
+        departureTicket:
+          - "6774883d540846dab7f3f52c"
   responses:
     ValidationError:
       description: Validation error

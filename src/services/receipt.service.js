@@ -13,6 +13,14 @@ const getReceipts = async () => {
   return await Receipt.find();
 };
 
+const getReceiptsByUserId = async (userId) => {
+  const receipts = await Receipt.find({ userId: userId });
+  if (!receipts) {
+    throw new ApiError(404, "Receipts not found");
+  }
+  return receipts;
+};
+
 const updateReceipt = async (receiptId, updateBody) => {
   const receipt = await Receipt.findByIdAndUpdate(receiptId, updateBody, {
     new: true,
@@ -35,6 +43,7 @@ module.exports = {
   createReceipt,
   getReceiptById,
   getReceipts,
+  getReceiptsByUserId,
   updateReceipt,
   deleteReceipt,
 };
