@@ -11,8 +11,6 @@ const queryFlights = async (filter, options) => {
 };
 
 const getFlightById = async (id) => {
-  console.log(id);
-
   const flight = await Flight.findById(id);
   if (!flight) {
     throw new ApiError(404, "Flight not found");
