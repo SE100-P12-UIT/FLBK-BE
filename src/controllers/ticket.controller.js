@@ -101,6 +101,17 @@ const createTicket = catchAsync(async (req, res) => {
   res.status(201).send();
 });
 
+const getTicketsById = catchAsync(async (req, res) => {
+  const tickets = await ticketService.getTicketsById(req.body.idTickets);
+
+  if (!tickets) {
+    throw new ApiError(404, "Tickets not found");
+  }
+
+  res.status(200).send(tickets);
+});
+
 module.exports = {
   createTicket,
+  getTicketsById,
 };

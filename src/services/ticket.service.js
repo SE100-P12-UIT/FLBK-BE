@@ -5,8 +5,8 @@ const createTicket = async (ticketBody) => {
   return Ticket.create(ticketBody);
 };
 
-const getTickets = async (filter, options) => {
-  const tickets = await Ticket.paginate(filter, options);
+const getTicketsById = async (idTickets) => {
+  const tickets = await Ticket.find({ _id: { $in: idTickets } });
   return tickets;
 };
 
@@ -42,6 +42,17 @@ const getTicketByArrivalAirport = async (arrivalAirport) => {
   return tickets;
 };
 
+const getTicketByStatus = async (status) => {
+  const tickets = await Ticket.find({
+    status: status,
+  });
+
+  if (!tickets) {
+    throw new ApiError(404, "Ticket not found");
+  }
+  return tickets;
+};
+
 const updateTicketById = async (ticketId, updateBody) => {
   const ticket = await Ticket.findByIdAndUpdate(ticketId, updateBody, {
     new: true,
@@ -62,11 +73,12 @@ const deleteTicketById = async (ticketId) => {
 
 module.exports = {
   createTicket,
-  getTickets,
+  getTicketsById,
   getTicketById,
   getTicketByDepartureTime,
   getTicketByDepartureAirport,
   getTicketByArrivalAirport,
+  getTicketByStatus,
   updateTicketById,
   deleteTicketById,
 };

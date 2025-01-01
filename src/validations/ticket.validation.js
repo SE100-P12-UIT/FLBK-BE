@@ -36,8 +36,13 @@ const createTicket = {
     .optional(),
 };
 
-const getTickets = {};
+const getTicketsById = {
+  body: Joi.object().keys({
+    idTickets: Joi.array().items(Joi.string().custom(objectId)),
+  }),
+};
 
 module.exports = {
   createTicket,
+  getTicketsById,
 };
