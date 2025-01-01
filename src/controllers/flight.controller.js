@@ -64,6 +64,23 @@ const getFlightByDepartureTime = catchAsync(async (req, res) => {
   res.status(200).send(flights);
 });
 
+const filterFlights = catchAsync(async (req, res) => {
+  const { departureAirport, arrivalAirport, departureTime, airline } = req.body;
+
+  const flights = await flightService.filterFlights(
+    departureAirport,
+    arrivalAirport,
+    departureTime,
+    airline
+  );
+
+  if (!flights) {
+    throw new ApiError(404, "Flight not found");
+  }
+
+  res.status(200).send(flights);
+});
+
 module.exports = {
   createFlight,
   getFlights,
@@ -73,4 +90,5 @@ module.exports = {
   getFlightByDepartureAirport,
   getFlightByArrivalAirport,
   getFlightByDepartureTime,
+  filterFlights,
 };
