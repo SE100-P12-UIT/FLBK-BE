@@ -42,7 +42,7 @@ const getTicketByArrivalAirport = async (arrivalAirport) => {
   return tickets;
 };
 
-const getTicketByStatus = async (status) => {
+const getTicketsByStatus = async (status) => {
   const tickets = await Ticket.find({
     status: status,
   });
@@ -78,7 +78,7 @@ module.exports = {
   getTicketByDepartureTime,
   getTicketByDepartureAirport,
   getTicketByArrivalAirport,
-  getTicketByStatus,
+  getTicketsByStatus,
   updateTicketById,
   deleteTicketById,
 };

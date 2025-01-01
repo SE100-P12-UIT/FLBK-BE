@@ -2,6 +2,7 @@ const allRoles = {
   user: [
     "createTickets",
     "getTickets",
+    "manageTickets",
     "getFlights",
     "getReceipts",
     "cancelFlight",
@@ -13,6 +14,7 @@ const allRoles = {
     "getTickets",
     "getReceipts",
     "createTickets",
+    "manageTickets",
     "searchUserByEmail",
     "manageFlights",
     "getFlights",
@@ -26,6 +28,7 @@ const allRoles = {
     "getUsers",
     "getFlights",
     "searchUserByEmail",
+    "manageTickets",
     "managePlanes",
     "manageUsers",
     "manageRoles",

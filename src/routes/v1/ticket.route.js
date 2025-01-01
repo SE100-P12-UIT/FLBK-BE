@@ -55,26 +55,19 @@ router.post(
 /**
  * @swagger
  *  /ticket/getTicketsById:
- *   post:
+ *   get:
  *    summary: get tickets
  *    description: Users can get tickets by id
  *    tags: [Tickets]
  *    security:
  *      - bearerAuth: []
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            properties:
- *              idTickets:
- *                type: array
- *                items:
- *                  type: string
- *                description: Array of ticket IDs to retrieve
- *            required:
- *              - idTickets
+ *    parameters:
+ *      - in: query
+ *        name: idTickets
+ *        schema:
+ *          type: array
+ *          items:
+ *            type: string
  *    responses:
  *      "200":
  *        description: Tickets retrieved successfully
@@ -94,11 +87,99 @@ router.post(
  *        $ref: '#/components/responses/InternalServerError'
  */
 
-router.post(
+router.get(
   "/getTicketsById",
   auth("getTickets"),
-  validate(ticketValidation.getTicketsById),
   ticketController.getTicketsById
+);
+
+/**
+ * @swagger
+ *  /ticket/getTicketsByStatus:
+ *   get:
+ *    summary: get tickets by status
+ *    description: All roles can get tickets by status
+ *    tags: [Tickets]
+ *    security:
+ *      - bearerAuth: []
+ *    parameters:
+ *      - in: query
+ *        name: status
+ *        required: true
+ *        schema:
+ *          type: string
+ *    responses:
+ *      "200":
+ *        description: Tickets retrieved successfully
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Ticket'
+ *      "400":
+ *        $ref: '#/components/responses/BadRequest'
+ *      "401":
+ *        $ref: '#/components/responses/Unauthorized'
+ *      "403":
+ *        $ref: '#/components/responses/Forbidden'
+ *      "404":
+ *        $ref: '#/components/responses/NotFound'
+ *      "500":
+ *        $ref: '#/components/responses/InternalServerError'
+ *
+ */
+
+router.get(
+  "/getTicketsByStatus",
+  auth("getTickets"),
+  validate(ticketValidation.getTicketsByStatus),
+  ticketController.getTicketsByStatus
+);
+
+/**
+ * @swagger
+ *  /ticket/updateTicket/{ticketId}:
+ *   patch:
+ *    summary: Update a ticket by ID
+ *    description: All roles can update a plane by ID.
+ *    tags: [Tickets]
+ *    security:
+ *      - bearerAuth: []
+ *    parameters:
+ *      - in: path
+ *        name: ticketId
+ *        required: true
+ *        schema:
+ *          type: string
+ *        description: ID of the ticket to update
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Ticket'
+ *    responses:
+ *      "200":
+ *        description: Ticket updated successfully
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Ticket'
+ *      "400":
+ *        $ref: '#/components/responses/BadRequest'
+ *      "401":
+ *        $ref: '#/components/responses/Unauthorized'
+ *      "403":
+ *        $ref: '#/components/responses/Forbidden'
+ *      "404":
+ *        $ref: '#/components/responses/NotFound'
+ *      "500":
+ *        $ref: '#/components/responses/InternalServerError'
+ */
+router.patch(
+  "/updateTicket/:ticketId",
+  auth("manageTickets"),
+  validate(ticketValidation.updateTicket),
+  ticketController.updateTicketById
 );
 
 module.exports = router;

@@ -50,7 +50,7 @@ const createTicket = catchAsync(async (req, res) => {
         totalPrice: departureFlight.totalPrice,
         flight: departureFlight,
         receiptId: receipt._id,
-        status: "Success",
+        status: "Verifying",
       })
     );
     departureTicket.push(ticket._id);
@@ -82,7 +82,7 @@ const createTicket = catchAsync(async (req, res) => {
           totalPrice: returnFlight.totalPrice,
           flight: returnFlight,
           receiptId: receipt._id,
-          status: "Success",
+          status: "Verifying",
         })
       );
       returnTicket.push(ticket._id);
@@ -102,7 +102,7 @@ const createTicket = catchAsync(async (req, res) => {
 });
 
 const getTicketsById = catchAsync(async (req, res) => {
-  const tickets = await ticketService.getTicketsById(req.body.idTickets);
+  const tickets = await ticketService.getTicketsById(req.query.idTickets);
 
   if (!tickets) {
     throw new ApiError(404, "Tickets not found");
@@ -111,7 +111,32 @@ const getTicketsById = catchAsync(async (req, res) => {
   res.status(200).send(tickets);
 });
 
+const getTicketsByStatus = catchAsync(async (req, res) => {
+  const tickets = await ticketService.getTicketsByStatus(req.query.status);
+
+  if (!tickets) {
+    throw new ApiError(404, "Tickets not found");
+  }
+
+  res.status(200).send(tickets);
+});
+
+const updateTicketById = catchAsync(async (req, res) => {
+  const ticket = await ticketService.updateTicketById(
+    req.params.ticketId,
+    req.body
+  );
+
+  if (!ticket) {
+    throw new ApiError(404, "Tickets not found");
+  }
+
+  res.status(200).send(ticket);
+});
+
 module.exports = {
   createTicket,
   getTicketsById,
+  getTicketsByStatus,
+  updateTicketById,
 };
