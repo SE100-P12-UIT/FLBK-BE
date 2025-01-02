@@ -120,6 +120,16 @@ const updateStatusForSeats = async (flightName, seats, newStatus) => {
   return await Flight.bulkWrite(bulkOperations);
 };
 
+const updateStatusForSeat = async (flightName, seatName, status) => {
+  const flight = await Flight.findOneAndUpdate(
+    { flightName: flightName, "seats.seatName": seatName },
+    { $set: { "seats.$.isAvailable": status } },
+    { new: true }
+  );
+
+  return flight;
+};
+
 module.exports = {
   createFlight,
   queryFlights,
@@ -131,5 +141,6 @@ module.exports = {
   getFlightByDepartureTime,
   getSeats,
   updateStatusForSeats,
+  updateStatusForSeat,
   filterFlights,
 };
