@@ -42,26 +42,15 @@ const getTicketsByStatus = {
   }),
 };
 
-const updateTicket = {
+const declineBookedTicket = {
   body: Joi.object().keys({
-    userId: Joi.string().custom(objectId),
-    passenger: Joi.array().items(
-      Joi.object().keys({
-        title: Joi.string(),
-        name: Joi.string(),
-        dateOfBirth: Joi.date(),
-      })
-    ),
-    seatName: Joi.string(),
-    seatType: Joi.string(),
-    totalPrice: Joi.number(),
-    flight: Joi.object().keys({
-      flightName: Joi.string(),
-      departureAirport: Joi.string(),
-      arrivalAirport: Joi.string(),
-      departureTime: Joi.date(),
-    }),
-    receiptId: Joi.string().custom(objectId),
+    status: Joi.string(),
+    note: Joi.string(),
+  }),
+};
+
+const acceptRequestCancelTicketById = {
+  body: Joi.object().keys({
     status: Joi.string(),
     note: Joi.string(),
   }),
@@ -70,5 +59,6 @@ const updateTicket = {
 module.exports = {
   createTicket,
   getTicketsByStatus,
-  updateTicket,
+  declineBookedTicket,
+  acceptRequestCancelTicketById,
 };

@@ -137,10 +137,10 @@ router.get(
 
 /**
  * @swagger
- *  /ticket/updateTicket/{ticketId}:
+ *  /ticket/acceptBookedTicketById/{ticketId}:
  *   patch:
- *    summary: Update a ticket by ID
- *    description: All roles can update a plane by ID.
+ *    summary: Accept a booked ticket by ID
+ *    description: Employees can accept a booked ticket by ID.
  *    tags: [Tickets]
  *    security:
  *      - bearerAuth: []
@@ -150,16 +150,9 @@ router.get(
  *        required: true
  *        schema:
  *          type: string
- *        description: ID of the ticket to update
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            $ref: '#/components/schemas/Ticket'
  *    responses:
  *      "200":
- *        description: Ticket updated successfully
+ *        description: Ticket accepted
  *        content:
  *          application/json:
  *            schema:
@@ -176,10 +169,144 @@ router.get(
  *        $ref: '#/components/responses/InternalServerError'
  */
 router.patch(
-  "/updateTicket/:ticketId",
+  "/acceptBookedTicketById/:ticketId",
   auth("manageTickets"),
-  validate(ticketValidation.updateTicket),
-  ticketController.updateTicketById
+  ticketController.acceptBookedTicketById
+);
+
+/**
+ * @swagger
+ *  /ticket/declineBookedTicketById/{ticketId}:
+ *   patch:
+ *    summary: Decline a booked ticket by ID
+ *    description: Employees can decline a booked ticket by ID.
+ *    tags: [Tickets]
+ *    security:
+ *      - bearerAuth: []
+ *    parameters:
+ *      - in: path
+ *        name: ticketId
+ *        required: true
+ *        schema:
+ *          type: string
+ *    requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              note:
+ *                type: string
+ *    responses:
+ *      "200":
+ *        description: Ticket declined
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Ticket'
+ *      "400":
+ *        $ref: '#/components/responses/BadRequest'
+ *      "401":
+ *        $ref: '#/components/responses/Unauthorized'
+ *      "403":
+ *        $ref: '#/components/responses/Forbidden'
+ *      "404":
+ *        $ref: '#/components/responses/NotFound'
+ *      "500":
+ *        $ref: '#/components/responses/InternalServerError'
+ */
+router.patch(
+  "/declineBookedTicketById/:ticketId",
+  auth("manageTickets"),
+  validate(ticketValidation.declineBookedTicket),
+  ticketController.declineBookedTicketById
+);
+
+/**
+ * @swagger
+ *  /ticket/requestCancelTicketById/{ticketId}:
+ *   patch:
+ *    summary: Request cancel a booked ticket by ID
+ *    description: Users can request cancel a booked ticket by ID.
+ *    tags: [Tickets]
+ *    security:
+ *      - bearerAuth: []
+ *    parameters:
+ *      - in: path
+ *        name: ticketId
+ *        required: true
+ *        schema:
+ *          type: string
+ *    responses:
+ *      "200":
+ *        description: Request successfully
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Ticket'
+ *      "400":
+ *        $ref: '#/components/responses/BadRequest'
+ *      "401":
+ *        $ref: '#/components/responses/Unauthorized'
+ *      "403":
+ *        $ref: '#/components/responses/Forbidden'
+ *      "404":
+ *        $ref: '#/components/responses/NotFound'
+ *      "500":
+ *        $ref: '#/components/responses/InternalServerError'
+ */
+router.patch(
+  "/requestCancelTicketById/:ticketId",
+  auth("cancelTickets"),
+  ticketController.requestCancelTicketById
+);
+
+/**
+ * @swagger
+ *  /ticket/acceptRequestCancelTicketById/{ticketId}:
+ *   patch:
+ *    summary: Accept request cancel a booked ticket by ID
+ *    description: Employees can accept request cancel a booked ticket by ID.
+ *    tags: [Tickets]
+ *    security:
+ *      - bearerAuth: []
+ *    parameters:
+ *      - in: path
+ *        name: ticketId
+ *        required: true
+ *        schema:
+ *          type: string
+ *    requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              note:
+ *                type: string
+ *    responses:
+ *      "200":
+ *        description: Ticket canceled
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Ticket'
+ *      "400":
+ *        $ref: '#/components/responses/BadRequest'
+ *      "401":
+ *        $ref: '#/components/responses/Unauthorized'
+ *      "403":
+ *        $ref: '#/components/responses/Forbidden'
+ *      "404":
+ *        $ref: '#/components/responses/NotFound'
+ *      "500":
+ *        $ref: '#/components/responses/InternalServerError'
+ */
+router.patch(
+  "/acceptRequestCancelTicketById/:ticketId",
+  auth("manageTickets"),
+  validate(ticketValidation.acceptRequestCancelTicketById),
+  ticketController.acceptRequestCancelTicketById
 );
 
 module.exports = router;

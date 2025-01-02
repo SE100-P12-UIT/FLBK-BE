@@ -121,22 +121,114 @@ const getTicketsByStatus = catchAsync(async (req, res) => {
   res.status(200).send(tickets);
 });
 
-const updateTicketById = catchAsync(async (req, res) => {
-  const ticket = await ticketService.updateTicketById(
-    req.params.ticketId,
+const acceptBookedTicketById = catchAsync(async (req, res) => {
+  const ticket = await ticketService.getTicketById(req.params.ticketId);
+
+  if (ticket.status !== "Verifying") {
+    throw new ApiError(404, "Ticket not found");
+  }
+
+  const newTicket = await ticketService.updateTicketById(req.params.ticketId, {
+    status: "Success",
+  });
+
+  if (!newTicket) {
+    throw new ApiError(404, "Ticket not found");
+  }
+
+  res.status(200).send(newTicket);
+});
+
+const declineBookedTicketById = catchAsync(async (req, res) => {
+  const ticket = await ticketService.getTicketById(req.params.ticketId);
+
+  if (ticket.status !== "Verifying") {
+    throw new ApiError(404, "Ticket not found");
+  }
+
+  const updateBody = Object.assign(
+    {},
+    {
+      status: "Invalid",
+    },
     req.body
   );
 
-  if (!ticket) {
+  const newTicket = await ticketService.updateTicketById(
+    req.params.ticketId,
+    updateBody
+  );
+
+  if (!newTicket) {
     throw new ApiError(404, "Tickets not found");
   }
 
-  res.status(200).send(ticket);
+  res.status(200).send(newTicket);
+});
+
+const requestCancelTicketById = catchAsync(async (req, res) => {
+  const ticket = await ticketService.getTicketById(req.params.ticketId);
+
+  if (ticket.status !== "Success") {
+    throw new ApiError(404, "Ticket not found");
+  }
+
+  const newTicket = await ticketService.updateTicketById(req.params.ticketId, {
+    status: "PendingCancel",
+  });
+
+  if (!newTicket) {
+    throw new ApiError(404, "Tickets not found");
+  }
+
+  res.status(200).send(newTicket);
+});
+
+const acceptRequestCancelTicketById = catchAsync(async (req, res) => {
+  const ticket = await ticketService.getTicketById(req.params.ticketId);
+
+  if (ticket.status !== "PendingCancel") {
+    throw new ApiError(404, "Ticket not found");
+  }
+
+  const updateBody = Object.assign(
+    {},
+    {
+      status: "Canceled",
+    },
+    req.body
+  );
+
+  const newStatus = true;
+
+  const newTicket = await ticketService.updateTicketById(
+    req.params.ticketId,
+    updateBody
+  );
+
+  if (!newTicket) {
+    throw new ApiError(404, "Ticket not found");
+  }
+
+  const flight = await flightService.updateStatusForSeat(
+    ticket.flight.flightName,
+    ticket.seatName,
+    newStatus
+  );
+
+  if (!flight) {
+    throw new ApiError(404, "Flight not found");
+  }
+
+  res.status(200).send(newTicket);
 });
 
 module.exports = {
   createTicket,
   getTicketsById,
   getTicketsByStatus,
-  updateTicketById,
+  acceptBookedTicketById,
+  declineBookedTicketById,
+  requestCancelTicketById,
+  acceptRequestCancelTicketById,
 };
