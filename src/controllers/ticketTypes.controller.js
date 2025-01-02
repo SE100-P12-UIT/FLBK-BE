@@ -18,6 +18,13 @@ const getTicketType = catchAsync(async (req, res) => {
   res.status(200).send(ticketType);
 });
 
+const getTicketTypeByName = catchAsync(async (req, res) => {
+  const ticketType = await ticketTypesService.getTicketTypeByName(
+    req.params.ticketTypeName
+  );
+  res.status(200).send(ticketType);
+});
+
 const updateTicketType = catchAsync(async (req, res) => {
   const ticketType = await ticketTypesService.updateTicketType(
     req.params.ticketTypeId,
@@ -35,6 +42,7 @@ module.exports = {
   createTicketType,
   getTicketTypes,
   getTicketType,
+  getTicketTypeByName,
   updateTicketType,
   deleteTicketType,
 };

@@ -129,6 +129,47 @@ router.get(
 
 /**
  * @swagger
+ *  /ticketType/getTicketTypeByName/{ticketTypeName}:
+ *    get:
+ *     summary: Get a ticket type by name
+ *     description: All roles can get a ticket type by name.
+ *     tags: [TicketTypes]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: ticketTypeName
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Name of the ticket type to retrieve
+ *     responses:
+ *       "200":
+ *         description: Ticket type retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/TicketType'
+ *       "400":
+ *         $ref: '#/components/responses/BadRequest'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ *       "500":
+ *         $ref: '#/components/responses/InternalServerError'
+ */
+
+router.get(
+  "/getTicketTypeByName/:ticketTypeName",
+  auth("getTicketTypes"),
+  ticketTypesController.getTicketTypeByName
+);
+
+/**
+ * @swagger
  *  /ticketType/updateTicketType/{ticketTypeId}:
  *    patch:
  *     summary: Update a ticket type by ID
