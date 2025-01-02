@@ -20,6 +20,14 @@ const getTicketType = async (ticketTypeId) => {
   return ticketType;
 };
 
+const getTicketTypeByName = async (ticketTypeName) => {
+  const ticketType = await TicketTypes.findOne({ typeName: ticketTypeName });
+  if (!ticketType) {
+    throw new ApiError(404, "Ticket type not found");
+  }
+  return ticketType;
+};
+
 const updateTicketType = async (ticketTypeId, updateBody) => {
   const ticketType = await TicketTypes.findByIdAndUpdate(
     ticketTypeId,
@@ -44,6 +52,7 @@ module.exports = {
   createTicketType,
   getTicketTypes,
   getTicketType,
+  getTicketTypeByName,
   updateTicketType,
   deleteTicketType,
 };
