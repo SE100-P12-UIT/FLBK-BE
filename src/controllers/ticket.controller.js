@@ -233,6 +233,24 @@ const acceptRequestCancelTicketById = catchAsync(async (req, res) => {
   res.status(200).send(newTicket);
 });
 
+const declineRequestCancelTicketById = catchAsync(async (req, res) => {
+  const ticket = await ticketService.getTicketById(req.params.ticketId);
+
+  if (ticket.status !== "PendingCancel") {
+    throw new ApiError(404, "Ticket not found");
+  }
+
+  const newTicket = await ticketService.updateTicketById(req.params.ticketId, {
+    status: "Success",
+  });
+
+  if (!newTicket) {
+    throw new ApiError(404, "Ticket not found");
+  }
+
+  res.status(200).send(newTicket);
+});
+
 module.exports = {
   createTicket,
   getTicketsById,
@@ -241,4 +259,5 @@ module.exports = {
   declineBookedTicketById,
   requestCancelTicketById,
   acceptRequestCancelTicketById,
+  declineRequestCancelTicketById,
 };
