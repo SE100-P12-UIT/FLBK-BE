@@ -15,14 +15,6 @@ const getFlights = catchAsync(async (req, res) => {
   res.status(200).send(result);
 });
 
-const getFlight = catchAsync(async (req, res) => {
-  const flight = await flightService.getFlightById(req.params.flightId);
-  if (!flight) {
-    throw new ApiError(404, "Flight not found");
-  }
-  res.status(200).send(flight);
-});
-
 const updateFlight = catchAsync(async (req, res) => {
   const flight = await flightService.updateFlightById(
     req.params.flightId,
@@ -35,11 +27,10 @@ const updateFlight = catchAsync(async (req, res) => {
 });
 
 const deleteFlight = catchAsync(async (req, res) => {
-  const flight = await flightService.getFlightById(req.params.flightId);
+  const flight = await flightService.deleteFlightById(req.params.flightId);
   if (!flight) {
     throw new ApiError(404, "Flight not found");
   }
-  await flightService.deleteFlightById(req.params.flightId);
   res.status(204).send();
 });
 
@@ -65,7 +56,8 @@ const getFlightByDepartureTime = catchAsync(async (req, res) => {
 });
 
 const filterFlights = catchAsync(async (req, res) => {
-  const { departureAirport, arrivalAirport, departureTime, airline } = req.body;
+  const { departureAirport, arrivalAirport, departureTime, airline } =
+    req.query;
 
   const flights = await flightService.filterFlights(
     departureAirport,
@@ -84,7 +76,6 @@ const filterFlights = catchAsync(async (req, res) => {
 module.exports = {
   createFlight,
   getFlights,
-  getFlight,
   updateFlight,
   deleteFlight,
   getFlightByDepartureAirport,
