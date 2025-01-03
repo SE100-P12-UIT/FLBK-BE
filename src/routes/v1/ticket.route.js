@@ -309,4 +309,43 @@ router.patch(
   ticketController.acceptRequestCancelTicketById
 );
 
+/**
+ * @swagger
+ *  /ticket/declineRequestCancelTicketById/{ticketId}:
+ *   patch:
+ *    summary: Decline request cancel a booked ticket by ID
+ *    description: Employees can decline a booked ticket by ID.
+ *    tags: [Tickets]
+ *    security:
+ *      - bearerAuth: []
+ *    parameters:
+ *      - in: path
+ *        name: ticketId
+ *        required: true
+ *        schema:
+ *          type: string
+ *    responses:
+ *      "200":
+ *        description: Request declined
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Ticket'
+ *      "400":
+ *        $ref: '#/components/responses/BadRequest'
+ *      "401":
+ *        $ref: '#/components/responses/Unauthorized'
+ *      "403":
+ *        $ref: '#/components/responses/Forbidden'
+ *      "404":
+ *        $ref: '#/components/responses/NotFound'
+ *      "500":
+ *        $ref: '#/components/responses/InternalServerError'
+ */
+router.patch(
+  "/declineRequestCancelTicketById/:ticketId",
+  auth("manageTickets"),
+  ticketController.declineRequestCancelTicketById
+);
+
 module.exports = router;
