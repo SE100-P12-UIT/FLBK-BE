@@ -140,6 +140,7 @@ const acceptBookedTicketById = catchAsync(async (req, res) => {
 });
 
 const declineBookedTicketById = catchAsync(async (req, res) => {
+  const newStatus = true;
   const ticket = await ticketService.getTicketById(req.params.ticketId);
 
   if (ticket.status !== "Verifying") {
@@ -161,6 +162,16 @@ const declineBookedTicketById = catchAsync(async (req, res) => {
 
   if (!newTicket) {
     throw new ApiError(404, "Tickets not found");
+  }
+
+  const flight = await flightService.updateStatusForSeat(
+    ticket.flight.flightName,
+    ticket.seatName,
+    newStatus
+  );
+
+  if (!flight) {
+    throw new ApiError(404, "Flight not found");
   }
 
   res.status(200).send(newTicket);
