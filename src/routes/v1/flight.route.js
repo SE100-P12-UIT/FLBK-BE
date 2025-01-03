@@ -21,7 +21,6 @@ router
 
 router
   .route("/:flightId")
-  .get(auth("getFlights"), flightController.getFlight)
   .patch(
     auth("manageFlights"),
     validate(flightValidation.updateFlight),
@@ -55,7 +54,7 @@ router
 
 router
   .route("/filterFlights")
-  .post(auth("getFlights"), flightController.filterFlights);
+  .get(auth("getFlights"), flightController.filterFlights);
 
 module.exports = router;
 /**
@@ -148,27 +147,6 @@ module.exports = router;
 /**
  * @swagger
  * /flight/{flightId}:
- *   get:
- *     summary: Get a flight by ID
- *     tags: [Flights]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: flightId
- *         required: true
- *         schema:
- *           type: string
- *         description: Flight ID
- *     responses:
- *       "200":
- *         description: Flight details
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Flight'
- *       "404":
- *         $ref: '#/components/responses/NotFound'
  *   patch:
  *     summary: Update a flight
  *     tags: [Flights]
@@ -301,27 +279,29 @@ module.exports = router;
 /**
  * @swagger
  * /flight/filterFlights:
- *   post:
+ *   get:
  *     summary: Get flights with filter
  *     tags: [Flights]
  *     security:
  *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               departureAirport:
- *                 type: string
- *               arrivalAirport:
- *                 type: string
- *               departureTime:
- *                 type: string
- *                 format: date-time
- *               airline:
- *                 type: string
+ *     parameters:
+ *       - in: query
+ *         name: departureAirport
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: arrivalAirport
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: departureTime
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *       - in: query
+ *         name: airline
+ *         schema:
+ *           type: string
  *     responses:
  *       "200":
  *         description: List of filter flights
@@ -334,7 +314,15 @@ module.exports = router;
  *                   type: array
  *                   items:
  *                     $ref: '#/components/schemas/Flight'
+ *       "400":
+ *        $ref: '#/components/responses/BadRequest'
+ *       "401":
+ *        $ref: '#/components/responses/Unauthorized'
  *       "403":
- *         $ref: '#/components/responses/Forbidden'
+ *        $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *        $ref: '#/components/responses/NotFound'
+ *       "500":
+ *        $ref: '#/components/responses/InternalServerError'
  *
  */

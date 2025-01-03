@@ -10,21 +10,11 @@ const queryFlights = async (filter, options) => {
   return flights;
 };
 
-const getFlightById = async (id) => {
-  const flight = await Flight.findById(id);
-  if (!flight) {
-    throw new ApiError(404, "Flight not found");
-  }
-  return flight;
-};
-
 const updateFlightById = async (flightId, updateBody) => {
-  const flight = await getFlightById(flightId);
+  const flight = await Flight.findByIdAndUpdate(flightId, updateBody);
   if (!flight) {
     throw new ApiError(404, "Flight not found");
   }
-  Object.assign(flight, updateBody);
-  await flight.save();
   return flight;
 };
 
@@ -133,7 +123,6 @@ const updateStatusForSeat = async (flightName, seatName, status) => {
 module.exports = {
   createFlight,
   queryFlights,
-  getFlightById,
   updateFlightById,
   deleteFlightById,
   getFlightByArrivalAirport,
