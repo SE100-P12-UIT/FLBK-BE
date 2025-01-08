@@ -33,17 +33,25 @@ const filterFlights = async (
   airline
 ) => {
   let flights;
+  const end = new Date(departureTime);
+  const newEnd = new Date(end.getTime() + 24 * 60 * 60 * 1000 - 1);
   if (airline === null || airline === undefined) {
     flights = await Flight.find({
       departureAirport: departureAirport,
       arrivalAirport: arrivalAirport,
-      departureTime: departureTime,
+      departureTime: {
+        $gte: departureTime,
+        $lte: newEnd,
+      },
     });
   } else {
     flights = await Flight.find({
       departureAirport: departureAirport,
       arrivalAirport: arrivalAirport,
-      departureTime: departureTime,
+      departureTime: {
+        $gte: departureTime,
+        $lte: newEnd,
+      },
       "plane.airline": airline,
     });
   }
