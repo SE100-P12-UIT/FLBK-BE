@@ -41,8 +41,9 @@ const createTicket = catchAsync(async (req, res) => {
     new Receipt({
       userId: userId,
       total: isRoundTrip
-        ? departureFlight.totalPrice + returnFlight.totalPrice
-        : departureFlight.totalPrice,
+        ? (departureFlight.totalPrice + returnFlight.totalPrice) *
+          passenger.length
+        : departureFlight.totalPrice * passenger.length,
       totalTickets: isRoundTrip ? passenger.length * 2 : passenger.length,
       isRoundTrip: isRoundTrip,
     })
