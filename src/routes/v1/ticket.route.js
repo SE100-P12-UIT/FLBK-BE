@@ -63,6 +63,7 @@ router.post(
  *      - bearerAuth: []
  *    parameters:
  *      - in: query
+ *        required: true
  *        name: idTickets
  *        schema:
  *          type: array
@@ -91,6 +92,46 @@ router.get(
   "/getTicketsById",
   auth("getTickets"),
   ticketController.getTicketsById
+);
+
+/**
+ * @swagger
+ *  /ticket/getTicketsByDepartureTime:
+ *   get:
+ *    summary: get tickets
+ *    description: Admin can get tickets by departure time
+ *    tags: [Tickets]
+ *    security:
+ *      - bearerAuth: []
+ *    parameters:
+ *      - in: query
+ *        required: true
+ *        name: departureTime
+ *        schema:
+ *          type: date
+ *    responses:
+ *      "200":
+ *        description: Tickets retrieved successfully
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Ticket'
+ *      "400":
+ *        $ref: '#/components/responses/BadRequest'
+ *      "401":
+ *        $ref: '#/components/responses/Unauthorized'
+ *      "403":
+ *        $ref: '#/components/responses/Forbidden'
+ *      "404":
+ *        $ref: '#/components/responses/NotFound'
+ *      "500":
+ *        $ref: '#/components/responses/InternalServerError'
+ */
+
+router.get(
+  "/getTicketsByDepartureTime",
+  auth("manageTickets"),
+  ticketController.getTicketsByDepartureTime
 );
 
 /**

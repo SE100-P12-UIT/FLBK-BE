@@ -110,6 +110,18 @@ const getTicketsById = catchAsync(async (req, res) => {
   res.status(200).send(tickets);
 });
 
+const getTicketsByDepartureTime = catchAsync(async (req, res) => {
+  const tickets = await ticketService.getTicketByDepartureTime(
+    req.query.departureTime
+  );
+
+  if (!tickets) {
+    throw new ApiError(404, "Tickets not found");
+  }
+
+  res.status(200).send(tickets);
+});
+
 const getTicketsByStatus = catchAsync(async (req, res) => {
   const tickets = await ticketService.getTicketsByStatus(req.query.status);
 
@@ -255,6 +267,7 @@ module.exports = {
   createTicket,
   getTicketsById,
   getTicketsByStatus,
+  getTicketsByDepartureTime,
   acceptBookedTicketById,
   declineBookedTicketById,
   requestCancelTicketById,
