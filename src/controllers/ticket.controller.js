@@ -18,6 +18,25 @@ const createTicket = catchAsync(async (req, res) => {
     isRoundTrip = true;
   } else isRoundTrip = false;
 
+  const now = new Date();
+  const oneDayInMs = 24 * 60 * 60 * 1000;
+
+  if (departureFlight.departureTime - now < oneDayInMs) {
+    throw new ApiError(
+      400,
+      "The booking time must be at least 1 day before the flight departure time"
+    );
+  }
+
+  if (isRoundTrip) {
+    if (returnFlight.departureTime - now < oneDayInMs) {
+      throw new ApiError(
+        400,
+        "The booking time must be at least 1 day before the return flight departure time"
+      );
+    }
+  }
+
   const receipt = await receiptService.createReceipt(
     new Receipt({
       userId: userId,
@@ -190,6 +209,16 @@ const declineBookedTicketById = catchAsync(async (req, res) => {
 
 const requestCancelTicketById = catchAsync(async (req, res) => {
   const ticket = await ticketService.getTicketById(req.params.ticketId);
+
+  const now = new Date();
+  const oneDayInMs = 24 * 60 * 60 * 1000;
+
+  if (ticket.flight.departureTime - now < oneDayInMs) {
+    throw new ApiError(
+      400,
+      "The ticket cancellation time must be at least 1 day before the flight departure time"
+    );
+  }
 
   if (ticket.status !== "Success") {
     throw new ApiError(404, "Ticket not found");
