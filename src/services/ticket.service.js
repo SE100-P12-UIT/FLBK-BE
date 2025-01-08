@@ -17,7 +17,7 @@ const getTicketById = async (id) => {
 const getTicketByDepartureTime = async (departureTime) => {
   const tickets = await Ticket.find({ "flight.departureTime": departureTime });
   if (!tickets) {
-    throw new ApiError(404, "Ticket not found");
+    throw new ApiError(404, "Tickets not found");
   }
   return tickets;
 };
