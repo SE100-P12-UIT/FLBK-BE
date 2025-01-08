@@ -2,12 +2,14 @@ const Ticket = require("../models/ticket.model");
 const ApiError = require("../utils/ApiError");
 
 const generateFlightReport = async (startDate, endDate) => {
+  const newEndDate = new Date(endDate);
+  newEndDate.setHours(23, 59, 59, 999);
   const report = await Ticket.aggregate([
     {
       $match: {
         "flight.departureTime": {
           $gte: new Date(startDate),
-          $lte: new Date(endDate.setHours(23, 59, 59, 999)),
+          $lte: new Date(newEndDate),
         },
       },
     },
