@@ -63,7 +63,6 @@ router.post(
  *      - bearerAuth: []
  *    parameters:
  *      - in: query
- *        required: true
  *        name: idTickets
  *        schema:
  *          type: array
@@ -105,7 +104,6 @@ router.get(
  *      - bearerAuth: []
  *    parameters:
  *      - in: query
- *        required: true
  *        name: departureTime
  *        schema:
  *          type: date
@@ -146,7 +144,6 @@ router.get(
  *    parameters:
  *      - in: query
  *        name: status
- *        required: true
  *        schema:
  *          type: string
  *    responses:
