@@ -8,6 +8,7 @@ const ticketTypesRoute = require("./ticketTypes.route");
 const planeRoute = require("./plane.route");
 const ticketRoute = require("./ticket.route");
 const receiptRoute = require("./receipt.route");
+const adminRoute = require("./admin.route");
 const config = require("../../config/config");
 
 const router = express.Router();
@@ -48,6 +49,10 @@ const defaultRoutes = [
   {
     path: "/receipt",
     route: receiptRoute,
+  },
+  {
+    path: "/admin",
+    route: adminRoute,
   },
 ];
 

@@ -19,6 +19,7 @@ const allRoles = {
     "manageFlights",
     "getFlights",
     "managePlanes",
+    "manageReports",
   ],
   admin: [
     "manageEmployees",
@@ -37,6 +38,7 @@ const allRoles = {
     "manageReports",
     "manageFlights",
     "manageRules",
+    "manageReports",
   ],
 };
 
