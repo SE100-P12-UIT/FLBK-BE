@@ -7,7 +7,7 @@ const generateFlightReport = async (startDate, endDate) => {
       $match: {
         "flight.departureTime": {
           $gte: new Date(startDate),
-          $lte: new Date(endDate),
+          $lte: new Date(endDate.setHours(23, 59, 59, 999)),
         },
       },
     },
