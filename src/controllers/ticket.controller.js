@@ -6,6 +6,7 @@ const Ticket = require("../models/ticket.model");
 const receiptService = require("../services/receipt.service");
 const flightService = require("../services/flight.service");
 const Receipt = require("../models/receipt.model");
+const userService = require("../services/user.service");
 
 const createTicket = catchAsync(async (req, res) => {
   const { userId, passenger, departureFlight, returnFlight } = req.body;
@@ -36,6 +37,16 @@ const createTicket = catchAsync(async (req, res) => {
       );
     }
   }
+
+  let total;
+  if (isRoundTrip) {
+    total =
+      (departureFlight.totalPrice + returnFlight.totalPrice) * passenger.length;
+  } else {
+    total = departureFlight.totalPrice * passenger.length;
+  }
+
+  await userService.updateUserById(userId, { point: total });
 
   const receipt = await receiptService.createReceipt(
     new Receipt({
@@ -174,6 +185,14 @@ const declineBookedTicketById = catchAsync(async (req, res) => {
   const newStatus = true;
   const ticket = await ticketService.getTicketById(req.params.ticketId);
 
+  const user = await userService.getUserById(ticket.userId.toHexString());
+
+  const newPoint = user.point - ticket.totalPrice;
+
+  await userService.updateUserById(ticket.userId, {
+    point: newPoint,
+  });
+
   if (ticket.status !== "Verifying") {
     throw new ApiError(404, "Ticket not found");
   }
@@ -238,6 +257,10 @@ const requestCancelTicketById = catchAsync(async (req, res) => {
 
 const acceptRequestCancelTicketById = catchAsync(async (req, res) => {
   const ticket = await ticketService.getTicketById(req.params.ticketId);
+
+  const user = await userService.getUserById(ticket.userId.toHexString());
+
+  const newPoint = user.point - ticket.totalPrice;
 
   if (ticket.status !== "PendingCancel") {
     throw new ApiError(404, "Ticket not found");

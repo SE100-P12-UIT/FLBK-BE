@@ -84,6 +84,10 @@ const userSchema = new mongoose.Schema(
         required: false,
       },
     },
+    point: {
+      type: Number,
+      required: false,
+    },
   },
   {
     timestamps: true,

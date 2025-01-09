@@ -18,6 +18,7 @@ const createUser = {
         street: Joi.string().required(),
       })
       .optional(),
+    point: Joi.number().optional(),
   }),
 };
 
@@ -57,6 +58,7 @@ const updateUser = {
           street: Joi.string(),
         })
         .optional(),
+      point: Joi.number(),
     })
     .min(1),
 };

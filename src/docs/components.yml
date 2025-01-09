@@ -41,6 +41,8 @@ components:
               type: string
             street:
               type: string
+        point:
+          type: number
       example:
         id: "5ebac534954b54139806c112"
         email: "fake@example.com"
@@ -54,6 +56,7 @@ components:
           district: "District A"
           town: "Town B"
           street: "Street A"
+        point: 0
 
     Token:
       type: object
