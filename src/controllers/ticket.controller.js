@@ -46,7 +46,11 @@ const createTicket = catchAsync(async (req, res) => {
     total = departureFlight.totalPrice * passenger.length;
   }
 
-  await userService.updateUserById(userId, { point: total });
+  const user = await userService.getUserById(ticket.userId.toHexString());
+
+  const newPoint = user.point + total;
+
+  await userService.updateUserById(userId, { point: newPoint });
 
   const receipt = await receiptService.createReceipt(
     new Receipt({
