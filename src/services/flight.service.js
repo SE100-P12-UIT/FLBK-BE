@@ -79,7 +79,14 @@ const getFlightByArrivalAirport = async (arrivalAirport) => {
 };
 
 const getFlightByDepartureTime = async (departureTime) => {
-  const flights = await Flight.find({ departureTime: departureTime });
+  const end = new Date(departureTime);
+  const newEnd = new Date(end.getTime() + 24 * 60 * 60 * 1000 - 1);
+  const flights = await Flight.find({
+    departureTime: {
+      $gte: departureTime,
+      $lte: newEnd,
+    },
+  });
   if (!flights) {
     throw new ApiError(404, "Flight not found");
   }
