@@ -266,6 +266,10 @@ const acceptRequestCancelTicketById = catchAsync(async (req, res) => {
 
   const newPoint = user.point - ticket.totalPrice;
 
+  await userService.updateUserById(ticket.userId, {
+    point: newPoint,
+  });
+
   if (ticket.status !== "PendingCancel") {
     throw new ApiError(404, "Ticket not found");
   }
